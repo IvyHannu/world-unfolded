@@ -10,7 +10,8 @@
     "web": "expo start --web",
     "lint": "expo lint app src __tests__",
     "test": "jest --runInBand",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "content:validate": "jest --runInBand src/test/contentValidation.test.ts"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",

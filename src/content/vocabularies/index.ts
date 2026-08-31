@@ -1,0 +1,10 @@
+export const REGIONS = ['west_africa', 'southern_africa', 'western_asia', 'east_asia', 'south_america', 'north_america'] as const;
+export type Region = (typeof REGIONS)[number];
+export const INTEREST_TAGS = ['nature', 'wildlife', 'culture', 'food', 'architecture', 'adventure', 'history', 'beaches', 'mountains', 'photography'] as const;
+export type InterestTag = (typeof INTEREST_TAGS)[number];
+export const DISCOVERY_LAYERS = ['iconic', 'hidden', 'culture', 'taste', 'nature'] as const;
+export type DiscoveryLayer = (typeof DISCOVERY_LAYERS)[number];
+export const DISCOVERY_ITEM_TYPES = ['attraction', 'landmark', 'cultural_practice', 'food_experience', 'natural_site', 'hidden_place'] as const;
+export type DiscoveryItemType = (typeof DISCOVERY_ITEM_TYPES)[number];
+export const LOCALITY_TYPES = ['city', 'town', 'region', 'national_park', 'mixed_region'] as const;
+export type LocalityType = (typeof LOCALITY_TYPES)[number];
