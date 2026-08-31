@@ -23,14 +23,14 @@ export const capeTownDiscoveryItems: DiscoveryItem[] = [
     id: 'companys-garden', destinationId: 'cape-town', layer: 'hidden', type: 'hidden_place', name: "Company’s Garden",
     description: 'A long public garden in the city centre, now linking museums, archives, historic buildings, and shaded walking paths below Table Mountain.',
     culturalSignificance: 'The garden began as a Dutch East India Company provisioning garden; its present calm sits within the colonial history that transformed the Cape and dispossessed Indigenous communities.',
-    location: { latitude: -33.9288, longitude: 18.4156 }, imageIds: ['companys-garden-image'], interestTags: ['history', 'nature', 'architecture'],
+    location: { latitude: -33.9278, longitude: 18.4169 }, imageIds: ['companys-garden-image'], interestTags: ['history', 'nature', 'architecture'],
   },
   {
     id: 'district-six-museum', destinationId: 'cape-town', layer: 'culture', type: 'attraction', name: 'District Six Museum',
     description: 'A community-rooted museum preserving memories of District Six and the people forcibly removed after the area was declared for white occupation under apartheid.',
     culturalSignificance: 'Oral histories, maps, photographs, and personal objects centre former residents and connect forced removal to continuing questions of restitution and belonging.',
     location: { latitude: -33.9277, longitude: 18.4237 }, imageIds: ['district-six-image'], interestTags: ['culture', 'history'],
-    practicalInformation: { openingHours: 'Monday–Saturday, 09:00–16:00; confirm before visiting.', accessibilityNotes: 'The museum asks visitors with access requirements to contact it directly before arrival.', verification: { kind: 'verified', sourceName: 'District Six Museum', sourceUrl: 'https://www.districtsix.co.za/visit-the-museum/', lastVerifiedDate: '2026-08-31' } },
+    practicalInformation: { openingHours: 'Monday–Saturday, 09:00–16:00; confirm before visiting.', verification: { kind: 'verified', sourceName: 'District Six Museum — Museum Information', sourceUrl: 'https://www.districtsix.co.za/museum-information/', lastVerifiedDate: '2026-08-31' } },
   },
   {
     id: 'bo-kaap-cultural-landscape', destinationId: 'cape-town', layer: 'culture', type: 'cultural_practice', name: 'Bo-Kaap Cultural Landscape',
@@ -52,15 +52,15 @@ export const capeTownDiscoveryItems: DiscoveryItem[] = [
   },
   {
     id: 'boulders-beach', destinationId: 'cape-town', layer: 'nature', type: 'natural_site', name: 'Boulders Beach',
-    description: 'Sheltered coves and granite boulders form part of Table Mountain National Park’s marine protected area and support a land-based colony of endangered African penguins.',
+    description: 'Sheltered coves and granite boulders form part of Table Mountain National Park’s marine protected area and support a land-based colony of critically endangered African penguins.',
     location: { latitude: -34.1972, longitude: 18.4513 }, imageIds: ['boulders-image'], interestTags: ['nature', 'wildlife', 'beaches', 'photography'],
-    practicalInformation: { accessibilityNotes: 'Cape Town Tourism reports wheelchair-friendly boardwalk access to the penguin viewing area; check current conditions with SANParks.', verification: { kind: 'linked-to-source', sourceName: 'SANParks — Boulders', sourceUrl: 'https://www.sanparks.org/parks/table-mountain/what-to-do/attractions#boulders' } },
+    practicalInformation: { accessibilityNotes: 'SANParks describes a wooden boardwalk to the penguin colony, ramped visitor-centre access, and wheelchair-user ablutions; some routes are steep and may require assistance.', officialVisitorUrl: 'https://www.sanparks.org/parks/table-mountain/what-to-do/attractions/boulders-penguin-colony', verification: { kind: 'linked-to-source', sourceName: 'SANParks — Table Mountain National Park accessibility information', sourceUrl: 'https://www.sanparks.org/parks/table-mountain/useful-information/people-with-disabilities' } },
   },
   {
     id: 'cape-point', destinationId: 'cape-town', layer: 'nature', type: 'natural_site', name: 'Cape Point',
     description: 'Cape Point lies in the Cape of Good Hope section of Table Mountain National Park, where steep cliffs, ocean views, fynbos, and exposed coastal weather define the southern peninsula.',
     culturalSignificance: 'It is often incorrectly called Africa’s southernmost point; Cape Agulhas holds that distinction. Cape Point remains significant for maritime history and conservation.',
     location: { latitude: -34.3568, longitude: 18.4975 }, imageIds: ['cape-point-image'], interestTags: ['nature', 'adventure', 'history', 'photography'],
-    practicalInformation: { openingHours: 'Seasonal gate hours apply; use the official park information before travelling.', verification: { kind: 'linked-to-source', sourceName: 'SANParks — Table Mountain National Park', sourceUrl: 'https://www.sanparks.org/parks/table-mountain' } },
+    practicalInformation: { openingHours: 'Seasonal gate hours apply; use the official park information before travelling.', officialVisitorUrl: 'https://www.sanparks.org/parks/table-mountain/what-to-do/attractions/cape-of-good-hope-cape-point', verification: { kind: 'linked-to-source', sourceName: 'SANParks — Cape of Good Hope & Cape Point', sourceUrl: 'https://www.sanparks.org/parks/table-mountain/what-to-do/attractions/cape-of-good-hope-cape-point' } },
   },
 ];

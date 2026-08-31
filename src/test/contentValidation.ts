@@ -51,14 +51,16 @@ export function validateContent(content: ContentSet): string[] {
     if (!inVocabulary(item.type, DISCOVERY_ITEM_TYPES)) errors.push(`${item.id}: invalid type.`);
     if (item.interestTags.some((tag) => !inVocabulary(tag, INTEREST_TAGS))) errors.push(`${item.id}: invalid interest tag.`);
     if (item.location && !isValidCoordinate(item.location)) errors.push(`${item.id}: invalid coordinates.`);
+    if (item.practicalInformation?.officialVisitorUrl && !item.practicalInformation.officialVisitorUrl.startsWith('https://')) errors.push(`${item.id}: official visitor URL must use HTTPS.`);
     if (item.imageIds.length === 0) errors.push(`${item.id}: requires an image.`);
     for (const imageId of item.imageIds) if (!imageIds.has(imageId)) errors.push(`${item.id}: missing image ${imageId}.`);
     if (item.practicalInformation && !isValidPracticalInformation(item.practicalInformation)) errors.push(`${item.id}: invalid practical information.`);
   }
 
   for (const image of content.images) {
-    if (![image.id, image.url, image.creatorName, image.licenseOrTerms, image.representedSubjectId, image.altText, image.sourceUrl].every(complete)) errors.push(`${image.id}: incomplete attribution.`);
-    if (!image.url.startsWith('https://') || !image.sourceUrl.startsWith('https://')) errors.push(`${image.id}: image URLs must use HTTPS.`);
+    if (![image.id, image.url, image.creatorName, image.creatorAttribution, image.licenseOrTerms, image.licenseUrl, image.representedSubjectId, image.altText, image.sourceUrl].every(complete)) errors.push(`${image.id}: incomplete attribution.`);
+    if (!image.url.startsWith('https://') || !image.sourceUrl.startsWith('https://') || !image.licenseUrl.startsWith('https://')) errors.push(`${image.id}: image and license URLs must use HTTPS.`);
+    if (typeof image.changeNoticeRequired !== 'boolean' || typeof image.shareAlikeRequired !== 'boolean') errors.push(`${image.id}: incomplete reuse requirements.`);
     if (!destinationIds.has(image.representedSubjectId) && !itemIds.has(image.representedSubjectId)) errors.push(`${image.id}: represented subject does not exist.`);
   }
 
