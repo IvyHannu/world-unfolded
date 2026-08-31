@@ -1,4 +1,9 @@
-import { Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+
+import { spacing } from '@/tokens';
+
+import { AppText } from './app-text';
+import { ScreenContainer } from './screen-container';
 
 interface PlaceholderScreenProps {
   title: string;
@@ -6,9 +11,11 @@ interface PlaceholderScreenProps {
 
 export function PlaceholderScreen({ title }: PlaceholderScreenProps) {
   return (
-    <View>
-      <Text accessibilityRole="header">{title}</Text>
-      <Text>Phase 1 placeholder</Text>
-    </View>
+    <ScreenContainer>
+      <AppText accessibilityRole="header" typographyRole="heading">{title}</AppText>
+      <AppText style={styles.context}>Application shell — feature content arrives in a later approved phase.</AppText>
+    </ScreenContainer>
   );
 }
+
+const styles = StyleSheet.create({ context: { marginTop: spacing.sm } });
