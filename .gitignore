@@ -34,15 +34,16 @@ yarn-error.*
 .env*
 !.env.example
 
-# local tool caches and temporary scaffold metadata
+# local Phase 0 caches and reversible scaffold backups
 .npm-cache/
-.expo-home/
+.phase0-sdk54/
+.phase0-sdk57-backup/
 .phase0-scaffold/
 
 # typescript
 *.tsbuildinfo
 
-example
+app-example
 
 # generated native folders
 /ios
