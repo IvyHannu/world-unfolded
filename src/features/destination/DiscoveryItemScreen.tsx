@@ -15,7 +15,7 @@ export function DiscoveryItemScreen({ item, onBack, onOpenCredits }: DiscoveryIt
   const itemId = item?.id;
   const savedRecord = useSavedStore((state) => state.records.find((record) => record.subjectId === itemId));
   const setSavedStatus = useSavedStore((state) => state.setStatus);
-  if (!item) return <ScreenContainer><ErrorState actionLabel="Go back" message="This discovery is not part of the approved Cape Town pilot." onAction={onBack} title="Discovery unavailable" /></ScreenContainer>;
+  if (!item) return <ScreenContainer><ErrorState actionLabel="Go back" message="This discovery is not part of the approved content set." onAction={onBack} title="Discovery unavailable" /></ScreenContainer>;
   const image = getImageById(item.imageIds[0]);
   const practical = item.practicalInformation;
   const verificationSourceUrl = practical?.verification.kind !== 'not-applicable' ? practical?.verification.sourceUrl : undefined;

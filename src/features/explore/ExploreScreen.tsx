@@ -4,14 +4,14 @@ import { ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { AppText, Chip, ContentImage, EmptyState, LayerLabel, ScreenContainer, Tappable } from '@/components/ui';
 import { destinations, discoveryItems } from '@/content/contentIndex';
 import { getImageById } from '@/content/selectors';
-import { DISCOVERY_LAYERS, INTEREST_TAGS, type DiscoveryLayer, type InterestTag } from '@/content/vocabularies';
+import { DISCOVERY_LAYERS, INTEREST_TAGS, REGIONS, type DiscoveryLayer, type InterestTag, type Region } from '@/content/vocabularies';
 import { searchAndFilterContent, type ExploreFilters } from '@/search/discoverySearch';
-import { colors, radius, spacing, typography } from '@/tokens';
+import { colors, elevation, radius, spacing, typography } from '@/tokens';
 
 interface ExploreScreenProps { onOpenDestination: (id: string) => void; onOpenItem: (id: string) => void }
-
-const regionNames: Record<string, string> = { southern_africa: 'Southern Africa' };
 const display = (value: string) => value.replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
+const continents = [...new Set(destinations.map(({ continent }) => continent))];
+const countries = destinations.map(({ country }) => country);
 
 export function ExploreScreen({ onOpenDestination, onOpenItem }: ExploreScreenProps) {
   const [query, setQuery] = useState('');
@@ -20,69 +20,39 @@ export function ExploreScreen({ onOpenDestination, onOpenItem }: ExploreScreenPr
   const update = <K extends keyof ExploreFilters>(key: K, value: ExploreFilters[K]) => setFilters((current) => ({ ...current, [key]: current[key] === value ? undefined : value }));
   const clearAll = () => { setQuery(''); setFilters({}); };
 
-  return (
-    <ScreenContainer>
-      <View style={styles.header}>
-        <AppText accessibilityRole="header" typographyRole="display">Explore</AppText>
-        <AppText style={styles.secondary}>Search destinations and discoveries, then narrow them through one combined filter system.</AppText>
-      </View>
-      <TextInput
-        accessibilityLabel="Search destinations and discovery items"
-        onChangeText={setQuery}
-        placeholder="Search Cape Town, Boulders Beach…"
-        placeholderTextColor={colors.textSecondary}
-        returnKeyType="search"
-        style={styles.search}
-        value={query}
-      />
-
-      <FilterGroup label="Continent"><Chip label="Africa" onPress={() => update('continent', 'Africa')} selected={filters.continent === 'Africa'} /></FilterGroup>
-      <FilterGroup label="Country"><Chip label="South Africa" onPress={() => update('country', 'South Africa')} selected={filters.country === 'South Africa'} /></FilterGroup>
-      <FilterGroup label="Region"><Chip label={regionNames.southern_africa} onPress={() => update('region', 'southern_africa')} selected={filters.region === 'southern_africa'} /></FilterGroup>
-      <FilterGroup label="Discovery layer">
-        {DISCOVERY_LAYERS.map((layer) => <Chip key={layer} label={display(layer)} onPress={() => update('layer', layer as DiscoveryLayer)} selected={filters.layer === layer} />)}
-      </FilterGroup>
-      <FilterGroup label="Interest">
-        {INTEREST_TAGS.map((interest) => <Chip key={interest} label={display(interest)} onPress={() => update('interest', interest as InterestTag)} selected={filters.interest === interest} />)}
-      </FilterGroup>
-
-      <View style={styles.resultHeader}>
-        <AppText accessibilityRole="header" typographyRole="subheading">{results.length} {results.length === 1 ? 'result' : 'results'}</AppText>
-        <Tappable accessibilityLabel="Clear search and filters" accessibilityRole="button" onPress={clearAll} style={styles.clear}><AppText typographyRole="label">Clear all</AppText></Tappable>
-      </View>
-
-      {results.length === 0 ? <EmptyState actionLabel="Clear search and filters" message="Try a different name or remove one of the active filters." onAction={clearAll} title="No matching discoveries" /> : results.map((result) => {
-        const item = result.kind === 'item' ? result.item : undefined;
-        const image = getImageById(item ? item.imageIds[0] : result.destination.heroImageId);
-        const label = item?.name ?? result.destination.name;
-        return (
-          <Tappable key={`${result.kind}-${label}`} accessibilityLabel={`Open ${label}`} accessibilityRole="link" onPress={() => item ? onOpenItem(item.id) : onOpenDestination(result.destination.id)} style={styles.result}>
-            {image ? <ContentImage height={150} image={image} style={styles.resultImage} /> : null}
-            <View style={styles.resultCopy}>
-              {item ? <LayerLabel layer={item.layer} /> : <AppText typographyRole="caption">Destination</AppText>}
-              <AppText typographyRole="subheading">{label}</AppText>
-              <AppText style={styles.secondary}>{result.destination.country}</AppText>
-            </View>
-          </Tappable>
-        );
-      })}
-    </ScreenContainer>
-  );
+  return <ScreenContainer>
+    <View style={styles.header}><AppText accessibilityRole="header" typographyRole="display">Where will curiosity take you?</AppText><AppText style={styles.secondary}>Search all seven destinations and 35 discoveries.</AppText></View>
+    <View style={styles.floatingSearch}><TextInput accessibilityLabel="Search destinations and discovery items" onChangeText={setQuery} placeholder="Search Bali, samba, temples…" placeholderTextColor={colors.textSecondary} returnKeyType="search" style={styles.search} value={query} /></View>
+    <FilterGroup label="Continent">{continents.map((value) => <Chip key={value} label={value} onPress={() => update('continent', value)} selected={filters.continent === value} />)}</FilterGroup>
+    <FilterGroup label="Country">{countries.map((value) => <Chip key={value} label={value} onPress={() => update('country', value)} selected={filters.country === value} />)}</FilterGroup>
+    <FilterGroup label="Region">{REGIONS.map((value) => <Chip key={value} label={display(value)} onPress={() => update('region', value as Region)} selected={filters.region === value} />)}</FilterGroup>
+    <FilterGroup label="Discovery layer">{DISCOVERY_LAYERS.map((value) => <Chip key={value} label={display(value)} onPress={() => update('layer', value as DiscoveryLayer)} selected={filters.layer === value} />)}</FilterGroup>
+    <FilterGroup label="Interest">{INTEREST_TAGS.map((value) => <Chip key={value} label={display(value)} onPress={() => update('interest', value as InterestTag)} selected={filters.interest === value} />)}</FilterGroup>
+    <View style={styles.resultHeader}><AppText accessibilityRole="header" typographyRole="subheading">{results.length} {results.length === 1 ? 'result' : 'results'}</AppText><Tappable accessibilityLabel="Clear search and filters" accessibilityRole="button" onPress={clearAll} style={styles.clear}><AppText typographyRole="label">Clear all</AppText></Tappable></View>
+    {results.length === 0 ? <EmptyState actionLabel="Clear search and filters" message="Try another name or remove an active filter." onAction={clearAll} title="No matching discoveries" /> : results.map((result) => {
+      const item = result.kind === 'item' ? result.item : undefined;
+      const image = getImageById(item ? item.imageIds[0] : result.destination.heroImageId);
+      const label = item?.name ?? result.destination.name;
+      return <Tappable key={`${result.kind}-${item?.id ?? result.destination.id}`} accessibilityLabel={`Open ${label}`} accessibilityRole="link" onPress={() => item ? onOpenItem(item.id) : onOpenDestination(result.destination.id)} style={styles.result}>
+        {image ? <ContentImage height={180} image={image} style={styles.resultImage} /> : null}
+        <View style={styles.resultCopy}>{item ? <LayerLabel layer={item.layer} /> : <AppText typographyRole="caption">Destination</AppText>}<AppText typographyRole="subheading">{label}</AppText><AppText style={styles.secondary}>{result.destination.country}</AppText></View>
+      </Tappable>;
+    })}
+  </ScreenContainer>;
 }
 
-function FilterGroup({ children, label }: { children: React.ReactNode; label: string }) {
-  return <View style={styles.filterGroup}><AppText typographyRole="label">{label}</AppText><ScrollView horizontal contentContainerStyle={styles.chips} showsHorizontalScrollIndicator={false}>{children}</ScrollView></View>;
-}
+function FilterGroup({ children, label }: { children: React.ReactNode; label: string }) { return <View style={styles.filterGroup}><AppText typographyRole="label">{label}</AppText><ScrollView horizontal contentContainerStyle={styles.chips} showsHorizontalScrollIndicator={false}>{children}</ScrollView></View>; }
 
 const styles = StyleSheet.create({
   header: { gap: spacing.sm, marginBottom: spacing.lg },
-  secondary: { color: colors.textSecondary },
-  search: { ...typography.default.body, backgroundColor: colors.surface, borderColor: colors.border, borderRadius: radius.md, borderWidth: 2, color: colors.textPrimary, minHeight: 52, paddingHorizontal: spacing.md },
+  secondary: { color: colors.textSecondary, opacity: 0.78 },
+  floatingSearch: { backgroundColor: colors.surface, borderRadius: radius.pill, ...elevation.overlay },
+  search: { ...typography.default.body, color: colors.textPrimary, minHeight: 56, paddingHorizontal: spacing.lg },
   filterGroup: { gap: spacing.sm, marginTop: spacing.lg },
   chips: { gap: spacing.sm },
   resultHeader: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginBottom: spacing.md, marginTop: spacing['2xl'] },
-  clear: { alignItems: 'center', justifyContent: 'center', paddingHorizontal: spacing.sm },
-  result: { alignItems: 'center', borderBottomColor: colors.border, borderBottomWidth: 1, flexDirection: 'row', gap: spacing.lg, paddingVertical: spacing.md },
-  resultImage: { borderRadius: radius.md, flexBasis: 190, maxWidth: 190 },
-  resultCopy: { flex: 1, gap: spacing.xs },
+  clear: { alignItems: 'center', justifyContent: 'center', minHeight: 48, paddingHorizontal: spacing.sm },
+  result: { alignItems: 'center', backgroundColor: colors.surface, borderRadius: radius.lg, flexDirection: 'row', gap: spacing.lg, marginBottom: spacing.md, overflow: 'hidden', padding: spacing.sm, ...elevation.raised },
+  resultImage: { borderRadius: radius.md, flexBasis: 210, maxWidth: 210 },
+  resultCopy: { flex: 1, gap: spacing.xs, padding: spacing.sm },
 });

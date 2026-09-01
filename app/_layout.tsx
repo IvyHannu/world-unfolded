@@ -42,6 +42,7 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="profile" options={{ title: 'Profile' }} />
+        <Stack.Screen name="explore" options={{ title: 'Explore' }} />
         <Stack.Screen name="destination/[id]" options={{ title: 'Destination' }} />
         <Stack.Screen name="item/[id]" options={{ title: 'Discovery Item' }} />
         <Stack.Screen name="image-credits/[imageId]" options={{ title: 'Image Credits' }} />

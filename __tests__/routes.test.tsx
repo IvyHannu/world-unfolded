@@ -26,7 +26,7 @@ describe('approved Phase 1 routes', () => {
       { initialUrl: '/' },
     );
 
-    expect(await screen.findByRole('header', { name: 'The world, understood in layers.' })).toBeTruthy();
+    expect(await screen.findByRole('header', { name: 'Discover the world, your way.' })).toBeTruthy();
   });
 
   it.each(routeScreens)('keeps the deferred %s route as a placeholder', (Route, heading) => {

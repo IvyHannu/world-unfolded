@@ -276,6 +276,24 @@
 
 ---
 
+## Corrective Phase 5.6: Visual Rebuild, Navigation, and Images
+
+**Objective:** Rebuild the active application shell and core discovery presentation around the approved modern, image-led travel direction before any later phase begins.
+
+**Tasks:** Use exactly four visible bottom tabs (Discover, Saved, Passport, Profile); keep Explore as a secondary searchable route; keep the unimplemented Map out of navigation; rebuild Discover and Destination Details around immersive photography, floating controls, rounded editorial cards, and restrained palette accents; replace repeated imagery with one attributable hero per destination and one relevant attributable image per discovery item.
+
+**Explicit exclusions:** No Map implementation, booking, itinerary planning, transport, reviews, backend, authentication, AI recommendations, dark mode, custom collections, or Phase 6 work.
+
+**Acceptance criteria:** The four-tab bar fits Android and mobile web widths without clipping; Discover and Destination Details match the approved hierarchy; all 42 displayed images are relevant, distinct within each destination, and fully attributable; Phase 5 persistence and accessibility behavior remain intact.
+
+**Required commands/checks:** `npx tsc --noEmit`, `npm run lint`, `npm test -- --runInBand`, `npx expo export -p web`, and `git diff --check`.
+
+**Manual verification:** Review every image and alt text, navigate every visible tab and secondary route on Android and mobile web, and reconfirm persistence, Larger Text, and Reduced Motion.
+
+**Stop condition:** Report after automated checks and wait for manual visual approval. Do not commit before approval.
+
+---
+
 ## Phase 6: Full Destination Content (superseded)
 
 **Status:** Superseded by Corrective Phase 5.5. Do not execute this phase as previously written and do not treat it as authorization for additional destinations or content.

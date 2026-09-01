@@ -16,7 +16,7 @@ describe('Phase 5 persisted stores', () => {
     const memory = memoryStorage();
     const first = createProfileStore(createSafeStorage(memory));
     first.getState().setInterests(['culture', 'food']);
-    first.getState().setPreferredRegions(['southern_africa']);
+    first.getState().setPreferredRegions(['north_africa']);
     first.getState().setLayerInterests(['hidden']);
     first.getState().setTextScale('large');
     first.getState().setReduceMotion(true);
@@ -24,7 +24,7 @@ describe('Phase 5 persisted stores', () => {
 
     const restarted = createProfileStore(createSafeStorage(memory));
     await restarted.persist.rehydrate();
-    expect(restarted.getState()).toEqual(expect.objectContaining({ interests: ['culture', 'food'], preferredRegions: ['southern_africa'], layerInterests: ['hidden'], accessibilityPreferences: { textScale: 'large', reduceMotion: true } }));
+    expect(restarted.getState()).toEqual(expect.objectContaining({ interests: ['culture', 'food'], preferredRegions: ['north_africa'], layerInterests: ['hidden'], accessibilityPreferences: { textScale: 'large', reduceMotion: true } }));
     expect(JSON.parse(memory.data[STORAGE_KEYS.profile]).version).toBe(STORAGE_SCHEMA_VERSION);
   });
 
@@ -33,20 +33,20 @@ describe('Phase 5 persisted stores', () => {
     const first = createSavedStore(createSafeStorage(memory));
     first.getState().setStatus('table-mountain', 'discoveryItem', 'saved', '2026-01-01T00:00:00.000Z');
     first.getState().setStatus('table-mountain', 'discoveryItem', 'wantToGo', '2026-01-02T00:00:00.000Z');
-    first.getState().setStatus('cape-town', 'destination', 'saved', '2026-01-03T00:00:00.000Z');
+    first.getState().setStatus('bali', 'destination', 'saved', '2026-01-03T00:00:00.000Z');
     await flushPersistence();
 
     const restarted = createSavedStore(createSafeStorage(memory));
     await restarted.persist.rehydrate();
     expect(restarted.getState().records).toHaveLength(2);
     expect(restarted.getState().records).toContainEqual(expect.objectContaining({ subjectId: 'table-mountain', status: 'wantToGo' }));
-    expect(restarted.getState().records).toContainEqual(expect.objectContaining({ subjectId: 'cape-town', status: 'saved' }));
+    expect(restarted.getState().records).toContainEqual(expect.objectContaining({ subjectId: 'bali', status: 'saved' }));
   });
 
   it('restores Passport records while deriving counters rather than storing them', async () => {
     const memory = memoryStorage();
     const first = createPassportStore(createSafeStorage(memory));
-    first.getState().markVisited('cape-town', '2026-01-04T00:00:00.000Z');
+    first.getState().markVisited('bali', '2026-01-04T00:00:00.000Z');
     await flushPersistence();
 
     const restarted = createPassportStore(createSafeStorage(memory));
@@ -68,8 +68,8 @@ describe('Phase 5 persisted stores', () => {
   });
 
   it('migrates and sanitizes legacy or invalid schema values', () => {
-    expect(migrateProfile({ interestIds: ['culture', 'invalid'], preferredRegionIds: ['southern_africa'], layerInterestIds: ['nature'], accessibilityPreferences: { textScale: 'large', reduceMotion: true } })).toEqual({ interests: ['culture'], preferredRegions: ['southern_africa'], layerInterests: ['nature'], accessibilityPreferences: { textScale: 'large', reduceMotion: true } });
+    expect(migrateProfile({ interestIds: ['culture', 'invalid'], preferredRegionIds: ['north_africa'], layerInterestIds: ['nature'], accessibilityPreferences: { textScale: 'large', reduceMotion: true } })).toEqual({ interests: ['culture'], preferredRegions: ['north_africa'], layerInterests: ['nature'], accessibilityPreferences: { textScale: 'large', reduceMotion: true } });
     expect(migrateSaved({ records: [{ subjectId: 'same', subjectType: 'destination', status: 'saved', dateAdded: 'one' }, { subjectId: 'same', subjectType: 'destination', status: 'wantToGo', dateAdded: 'two' }, { bad: true }] }).records).toEqual([{ subjectId: 'same', subjectType: 'destination', status: 'wantToGo', dateAdded: 'two' }]);
-    expect(migratePassport({ visitedRecords: [{ destinationId: 'cape-town', dateMarkedVisited: 'date' }, { nope: true }] }).visitedRecords).toEqual([{ destinationId: 'cape-town', dateMarkedVisited: 'date', stampId: 'stamp-cape-town' }]);
+    expect(migratePassport({ visitedRecords: [{ destinationId: 'bali', dateMarkedVisited: 'date' }, { nope: true }] }).visitedRecords).toEqual([{ destinationId: 'bali', dateMarkedVisited: 'date', stampId: 'stamp-bali' }]);
   });
 });

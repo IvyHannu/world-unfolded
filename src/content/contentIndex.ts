@@ -1,13 +1,13 @@
 import type { CuratedCollection } from '@/types';
-import { capeTown } from './destinations/cape-town';
-import { capeTownDiscoveryItems } from './discoveryItems/cape-town';
-import { capeTownImages } from './images/cape-town';
+import { v1Destinations } from './destinations/v1';
+import { v1DiscoveryItems } from './discoveryItems/v1';
+import { v1Images } from './images/v1';
 
-export const destinations = [capeTown];
-export const discoveryItems = [...capeTownDiscoveryItems];
-export const images = [...capeTownImages];
+export const destinations = v1Destinations;
+export const discoveryItems = v1DiscoveryItems.map((item) => ({ ...item, imageIds: [`${item.id}-image`] }));
+export const images = v1Images;
 export const curatedCollections: CuratedCollection[] = [
-  { id: 'cape-town-pilot', title: 'Cape Town through five layers', destinationIds: ['cape-town'] },
+  { id: 'v1-seven-destinations', title: 'Seven places, five ways to look', destinationIds: v1Destinations.map(({ id }) => id) },
 ];
 
 export const contentIndex = { destinations, discoveryItems, images, curatedCollections } as const;

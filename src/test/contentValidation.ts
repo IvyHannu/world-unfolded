@@ -26,6 +26,9 @@ export function validateContent(content: ContentSet): string[] {
   const itemIds = new Set(content.discoveryItems.map(({ id }) => id));
   const imageIds = new Set(content.images.map(({ id }) => id));
 
+  if (content.destinations.length !== 7) errors.push(`Expected 7 destinations, received ${content.destinations.length}.`);
+  if (content.discoveryItems.length !== 35) errors.push(`Expected 35 discovery items, received ${content.discoveryItems.length}.`);
+
   if (hasDuplicates(content.destinations.map(({ id }) => id))) errors.push('Destination IDs must be unique.');
   if (hasDuplicates(content.discoveryItems.map(({ id }) => id))) errors.push('Discovery item IDs must be unique.');
   if (hasDuplicates(content.images.map(({ id }) => id))) errors.push('Image IDs must be unique.');
@@ -41,7 +44,7 @@ export function validateContent(content: ContentSet): string[] {
     }
     for (const layer of DISCOVERY_LAYERS) {
       const count = content.discoveryItems.filter((item) => item.destinationId === destination.id && item.layer === layer).length;
-      if (count !== 2) errors.push(`${destination.id}: expected 2 ${layer} items, received ${count}.`);
+      if (count !== 1) errors.push(`${destination.id}: expected 1 ${layer} item, received ${count}.`);
     }
   }
 

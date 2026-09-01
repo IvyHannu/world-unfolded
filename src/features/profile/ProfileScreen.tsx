@@ -7,7 +7,7 @@ import { colors, spacing } from '@/tokens';
 
 const labels: Record<InterestTag | Region | DiscoveryLayer, string> = {
   nature: 'Nature', wildlife: 'Wildlife', culture: 'Culture', food: 'Food', architecture: 'Architecture', adventure: 'Adventure', history: 'History', beaches: 'Beaches', mountains: 'Mountains', photography: 'Photography',
-  west_africa: 'West Africa', southern_africa: 'Southern Africa', western_asia: 'Western Asia', east_asia: 'East Asia', south_america: 'South America', north_america: 'North America',
+  southeast_asia: 'Southeast Asia', north_africa: 'North Africa', southern_europe: 'Southern Europe', western_asia: 'Western Asia', east_asia: 'East Asia', south_america: 'South America',
   iconic: 'Iconic', hidden: 'Hidden', taste: 'Taste',
 };
 

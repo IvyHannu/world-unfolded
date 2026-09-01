@@ -22,9 +22,9 @@ describe('Phase 5 screens and preferences', () => {
   it('updates Profile selections and applies the discrete Larger Text scale', () => {
     render(<ProfileScreen />);
     fireEvent.press(screen.getAllByRole('button', { name: 'Culture' })[0]);
-    fireEvent.press(screen.getByRole('button', { name: 'Southern Africa' }));
+    fireEvent.press(screen.getByRole('button', { name: 'North Africa' }));
     fireEvent.press(screen.getByRole('button', { name: 'Larger Text' }));
-    expect(useProfileStore.getState()).toEqual(expect.objectContaining({ interests: ['culture'], preferredRegions: ['southern_africa'], accessibilityPreferences: { reduceMotion: false, textScale: 'large' } }));
+    expect(useProfileStore.getState()).toEqual(expect.objectContaining({ interests: ['culture'], preferredRegions: ['north_africa'], accessibilityPreferences: { reduceMotion: false, textScale: 'large' } }));
 
     const text = render(<AppText>Scaled text</AppText>).getByText('Scaled text');
     expect(StyleSheet.flatten(text.props.style)).toEqual(expect.objectContaining({ fontSize: typography.large.body.fontSize }));
@@ -36,28 +36,28 @@ describe('Phase 5 screens and preferences', () => {
     expect(screen.getByLabelText(images[0].altText).props.transition).toEqual({ duration: 0 });
   });
 
-  it('sets one Saved status per subject and marks Cape Town visited', () => {
+  it('sets one Saved status per subject and marks Bali visited', () => {
     render(<DestinationScreen destination={destinations[0]} items={discoveryItems} onBack={jest.fn()} onOpenCredits={jest.fn()} onOpenItem={jest.fn()} />);
-    fireEvent.press(screen.getByRole('button', { name: 'Saved' }));
-    fireEvent.press(screen.getAllByRole('button', { name: 'Want to Go' })[0]);
-    fireEvent.press(screen.getByRole('button', { name: 'Mark visited' }));
-    expect(useSavedStore.getState().records).toEqual([expect.objectContaining({ subjectId: 'cape-town', status: 'wantToGo' })]);
-    expect(usePassportStore.getState().visitedRecords).toEqual([expect.objectContaining({ destinationId: 'cape-town' })]);
+    fireEvent.press(screen.getByRole('button', { name: 'Save Bali' }));
+    fireEvent.press(screen.getByRole('button', { name: 'Mark Bali Want to Go' }));
+    fireEvent.press(screen.getByRole('button', { name: 'Mark Bali visited' }));
+    expect(useSavedStore.getState().records).toEqual([expect.objectContaining({ subjectId: 'bali', status: 'wantToGo' })]);
+    expect(usePassportStore.getState().visitedRecords).toEqual([expect.objectContaining({ destinationId: 'bali' })]);
   });
 
   it('renders the unified Saved list and its status filters', () => {
-    useSavedStore.getState().setStatus('table-mountain', 'discoveryItem', 'saved', 'date');
+    useSavedStore.getState().setStatus('tanah-lot', 'discoveryItem', 'saved', 'date');
     render(<SavedScreen onExplore={jest.fn()} onOpenDestination={jest.fn()} onOpenItem={jest.fn()} onOpenPassport={jest.fn()} />);
-    expect(screen.getByLabelText('Open Table Mountain')).toBeTruthy();
+    expect(screen.getByLabelText('Open Tanah Lot')).toBeTruthy();
     fireEvent.press(screen.getAllByRole('button', { name: 'Want to Go' })[0]);
     expect(screen.getByRole('header', { name: 'Nothing in this view' })).toBeTruthy();
   });
 
   it('renders derived Passport counters and a static stamp', () => {
-    usePassportStore.getState().markVisited('cape-town', '2026-01-04T00:00:00.000Z');
+    usePassportStore.getState().markVisited('bali', '2026-01-04T00:00:00.000Z');
     render(<PassportScreen onExplore={jest.fn()} onOpenDestination={jest.fn()} />);
     expect(screen.getByText('Countries visited')).toBeTruthy();
     expect(screen.getByText('Destinations visited')).toBeTruthy();
-    expect(screen.getByLabelText('Cape Town, South Africa Passport stamp')).toBeTruthy();
+    expect(screen.getByLabelText('Bali, Indonesia Passport stamp')).toBeTruthy();
   });
 });

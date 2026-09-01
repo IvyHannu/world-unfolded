@@ -1,4 +1,4 @@
-export const REGIONS = ['west_africa', 'southern_africa', 'western_asia', 'east_asia', 'south_america', 'north_america'] as const;
+export const REGIONS = ['southeast_asia', 'north_africa', 'southern_europe', 'western_asia', 'east_asia', 'south_america'] as const;
 export type Region = (typeof REGIONS)[number];
 export const INTEREST_TAGS = ['nature', 'wildlife', 'culture', 'food', 'architecture', 'adventure', 'history', 'beaches', 'mountains', 'photography'] as const;
 export type InterestTag = (typeof INTEREST_TAGS)[number];

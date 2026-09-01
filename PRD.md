@@ -189,10 +189,9 @@ World Unfolded uses a colorful, modern tourism direction. The experience must fe
 
 ## 10. Navigation and Information Architecture
 
-**Primary navigation:** Discover · Explore · Map · Saved · Passport
-**Profile & settings:** accessed via the Discover screen header.
+**Primary navigation:** Discover · Saved · Passport · Profile
 
-Map remains a primary-level tab. Passport, simplified as scoped, remains a primary-level tab.
+Explore remains a searchable browse route reached from Discover and empty-state actions, but is not a bottom tab. Map remains in the approved product scope for its later implementation phase, but is not shown in primary navigation until that work is complete.
 
 ---
 
@@ -323,7 +322,7 @@ Unverified, illustrative, or placeholder practical information must never be pre
 - Every displayed image has retrievable attribution metadata matching Section 15.
 - Every opening-hours or accessibility field shown meets the verification standard in Section 15 (sourced and dated, or linked to an official source); no unverified practical information is displayed as normal content.
 - Marking a destination visited updates the Passport counters and displays a stamp, with no second map or social feature present.
-- Core navigation (Discover, Explore, Map, Saved, Passport) is fully functional and matches Section 10.
+- Core navigation (Discover, Saved, Passport, Profile) is fully functional and matches Section 10; Explore remains reachable as a secondary route and Map remains deferred until its approved implementation phase.
 
 ---
 

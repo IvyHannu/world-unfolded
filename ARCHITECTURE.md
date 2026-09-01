@@ -28,13 +28,12 @@ world-unfolded/
 │   ├── (tabs)/
 │   │   ├── _layout.tsx            # Tab navigator layout (stable JS Tabs, not experimental native tabs)
 │   │   ├── discover.tsx
-│   │   ├── explore.tsx
-│   │   ├── map.tsx
 │   │   ├── saved.tsx
-│   │   └── passport.tsx
+│   │   ├── passport.tsx
+│   │   └── profile.tsx
 │   ├── destination/[id].tsx       # Outside the tab group — see Section 3
 │   ├── item/[id].tsx              # Outside the tab group
-│   ├── profile.tsx                # Outside the tab group
+│   ├── explore.tsx                # Secondary browse/search route outside the tab group
 │   └── image-credits/[imageId].tsx # Outside the tab group
 ├── src/
 │   ├── components/
@@ -82,17 +81,16 @@ Directory responsibilities are unchanged from the prior revision except: `src/co
 
 **Root redirect:** `app/_layout.tsx` (or a root `app/index.tsx`, whichever the confirmed Expo Router version's convention favors — verify at setup) redirects the root URL to `/(tabs)/discover`, so the app always opens on Discover rather than an undefined root.
 
-**Detail routes remain outside the tab group** (`destination/[id]`, `item/[id]`, `profile`, `image-credits/[imageId]`), so that back navigation returns the user to whichever screen actually opened them (e.g., an item opened from Saved returns to Saved, the same item opened from Explore returns to Explore) rather than always returning to a fixed tab.
+**Secondary and detail routes remain outside the tab group** (`explore`, `destination/[id]`, `item/[id]`, `image-credits/[imageId]`), so that back navigation returns the user to whichever screen actually opened them rather than always returning to a fixed tab.
 
 | Route | Purpose | Params |
 |---|---|---|
 | `/` | Redirects to `/(tabs)/discover` | — |
 | `/(tabs)/discover` | Discover screen | — |
-| `/(tabs)/explore` | Explore screen | optional query params for active filters |
-| `/(tabs)/map` | Map screen | optional query params for active category filter |
 | `/(tabs)/saved` | Saved screen | — |
 | `/(tabs)/passport` | Passport screen | — |
-| `/profile` | Profile (reached via Discover header) | — |
+| `/(tabs)/profile` | Profile screen | — |
+| `/explore` | Secondary Explore/search screen | optional query params for active filters |
 | `/destination/[id]` | Destination Details | `id`: destination id |
 | `/item/[id]` | Discovery Item Details | `id`: discovery item id |
 | `/image-credits/[imageId]` | Image attribution view | `imageId`: image asset id |

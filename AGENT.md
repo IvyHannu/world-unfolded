@@ -131,8 +131,8 @@ Restated from `ARCHITECTURE.md` — these are not open decisions:
 Codex must preserve:
 
 1. Discover as the initial route (root redirects to `/(tabs)/discover`).
-2. Five primary tabs: Discover, Explore, Map, Saved, Passport.
-3. Profile accessed outside the tab bar (via the Discover header).
+2. Four primary tabs: Discover, Saved, Passport, Profile.
+3. Explore is a secondary browse/search route reached from Discover and relevant empty states; Map remains hidden until its approved implementation phase.
 4. Destination, discovery item, and image-credit routes outside the tab group, so back navigation returns to the screen that opened them.
 5. Correct back behavior based on the originating screen — not a fixed return-to-tab behavior.
 6. Deep links functioning correctly for destination and discovery item routes.
