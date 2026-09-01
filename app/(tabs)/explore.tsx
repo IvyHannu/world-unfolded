@@ -1,5 +1,8 @@
-import { PlaceholderScreen } from '@/components/ui/placeholder-screen';
+import { useRouter } from 'expo-router';
+
+import { ExploreScreen } from '@/features/explore/ExploreScreen';
 
 export default function ExploreRoute() {
-  return <PlaceholderScreen title="Explore" />;
+  const router = useRouter();
+  return <ExploreScreen onOpenDestination={(id) => router.push(`/destination/${id}`)} onOpenItem={(id) => router.push(`/item/${id}`)} />;
 }

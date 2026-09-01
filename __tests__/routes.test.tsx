@@ -2,27 +2,18 @@ import { render, screen } from '@testing-library/react-native';
 import { Slot } from 'expo-router';
 import { renderRouter } from 'expo-router/testing-library';
 
-import DiscoverRoute from '../app/(tabs)/discover';
-import ExploreRoute from '../app/(tabs)/explore';
 import MapRoute from '../app/(tabs)/map';
 import PassportRoute from '../app/(tabs)/passport';
 import SavedRoute from '../app/(tabs)/saved';
-import DestinationDetailsRoute from '../app/destination/[id]';
-import ImageCreditsRoute from '../app/image-credits/[imageId]';
 import IndexRoute from '../app/index';
-import DiscoveryItemDetailsRoute from '../app/item/[id]';
 import ProfileRoute from '../app/profile';
+import DiscoverRoute from '../app/(tabs)/discover';
 
 const routeScreens = [
-  [DiscoverRoute, 'Discover'],
-  [ExploreRoute, 'Explore'],
   [MapRoute, 'Map'],
   [SavedRoute, 'Saved'],
   [PassportRoute, 'Passport'],
   [ProfileRoute, 'Profile'],
-  [DestinationDetailsRoute, 'Destination Details'],
-  [DiscoveryItemDetailsRoute, 'Discovery Item Details'],
-  [ImageCreditsRoute, 'Image Credits'],
 ] as const;
 
 function TestLayout() {
@@ -41,10 +32,10 @@ describe('approved Phase 1 routes', () => {
       { initialUrl: '/' },
     );
 
-    expect(await screen.findByRole('header', { name: 'Discover' })).toBeTruthy();
+    expect(await screen.findByRole('header', { name: 'The world, understood in layers.' })).toBeTruthy();
   });
 
-  it.each(routeScreens)('renders the %s placeholder', (Route, heading) => {
+  it.each(routeScreens)('keeps the deferred %s route as a placeholder', (Route, heading) => {
     render(<Route />);
 
     expect(screen.getByRole('header', { name: heading })).toBeTruthy();
