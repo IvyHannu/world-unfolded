@@ -1,16 +1,20 @@
 import { StyleSheet, View } from 'react-native';
 
-import { AppText, ContentImage, ErrorState, LayerLabel, ScreenContainer, Tappable } from '@/components/ui';
+import { AppText, Chip, ContentImage, ErrorState, LayerLabel, ScreenContainer, Tappable } from '@/components/ui';
 import { getImageById } from '@/content/selectors';
 import type { DiscoveryItem } from '@/types';
 import { colors, radius, spacing } from '@/tokens';
 import { openHttpsUrl } from '@/utils/externalLinks';
+import { useSavedStore } from '@/state/savedStore';
 
 interface DiscoveryItemScreenProps { item?: DiscoveryItem; onBack: () => void; onOpenCredits: (id: string) => void }
 
 const typeNames: Record<DiscoveryItem['type'], string> = { attraction: 'Attraction', landmark: 'Landmark', cultural_practice: 'Cultural practice', food_experience: 'Food experience', natural_site: 'Natural site', hidden_place: 'Hidden place' };
 
 export function DiscoveryItemScreen({ item, onBack, onOpenCredits }: DiscoveryItemScreenProps) {
+  const itemId = item?.id;
+  const savedRecord = useSavedStore((state) => state.records.find((record) => record.subjectId === itemId));
+  const setSavedStatus = useSavedStore((state) => state.setStatus);
   if (!item) return <ScreenContainer><ErrorState actionLabel="Go back" message="This discovery is not part of the approved Cape Town pilot." onAction={onBack} title="Discovery unavailable" /></ScreenContainer>;
   const image = getImageById(item.imageIds[0]);
   const practical = item.practicalInformation;
@@ -23,6 +27,10 @@ export function DiscoveryItemScreen({ item, onBack, onOpenCredits }: DiscoveryIt
         <AppText accessibilityRole="header" typographyRole="display">{item.name}</AppText>
         <AppText typographyRole="caption" style={styles.type}>{typeNames[item.type]}</AppText>
         {image ? <Tappable accessibilityLabel={`View image credits for ${item.name}`} accessibilityRole="link" onPress={() => onOpenCredits(image.id)} style={styles.link}><AppText typographyRole="caption">Image credits →</AppText></Tappable> : null}
+        <View accessibilityLabel={`${item.name} save actions`} style={styles.actions}>
+          <Chip label="Saved" onPress={() => setSavedStatus(item.id, 'discoveryItem', 'saved')} selected={savedRecord?.status === 'saved'} />
+          <Chip label="Want to Go" onPress={() => setSavedStatus(item.id, 'discoveryItem', 'wantToGo')} selected={savedRecord?.status === 'wantToGo'} />
+        </View>
       </View>
 
       <View style={styles.section}><AppText accessibilityRole="header" typographyRole="subheading">The discovery</AppText><AppText>{item.description}</AppText></View>
@@ -57,4 +65,5 @@ const styles = StyleSheet.create({
   practical: { backgroundColor: colors.surface, borderColor: colors.border, borderRadius: radius.lg, borderWidth: 1, gap: spacing.md, marginBottom: spacing.xl, maxWidth: 760, padding: spacing.lg },
   info: { gap: spacing.xs },
   link: { alignItems: 'center', alignSelf: 'flex-start', justifyContent: 'center', paddingHorizontal: spacing.sm },
+  actions: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm, marginTop: spacing.sm },
 });

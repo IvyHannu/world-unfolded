@@ -5,6 +5,7 @@ module.exports = {
     '^@/assets/(.*)$': '<rootDir>/assets/$1',
     '^@/(.*)$': '<rootDir>/src/$1',
   },
+  setupFiles: ['<rootDir>/jest.setup.js'],
   modulePathIgnorePatterns: ['<rootDir>/.phase0-sdk57-backup/'],
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.phase0-sdk57-backup/'],
 };

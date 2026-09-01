@@ -1,14 +1,21 @@
 import { StyleSheet, View } from 'react-native';
 
-import { AppText, ContentImage, ErrorState, LayerLabel, ScreenContainer, Tappable } from '@/components/ui';
+import { AppText, Chip, ContentImage, ErrorState, LayerLabel, ScreenContainer, Tappable } from '@/components/ui';
 import { getImageById } from '@/content/selectors';
 import { DISCOVERY_LAYERS } from '@/content/vocabularies';
 import type { Destination, DiscoveryItem } from '@/types';
 import { colors, discoveryLayerColors, radius, spacing } from '@/tokens';
+import { usePassportStore } from '@/state/passportStore';
+import { useSavedStore } from '@/state/savedStore';
 
 interface DestinationScreenProps { destination?: Destination; items: readonly DiscoveryItem[]; onBack: () => void; onOpenCredits: (id: string) => void; onOpenItem: (id: string) => void }
 
 export function DestinationScreen({ destination, items, onBack, onOpenCredits, onOpenItem }: DestinationScreenProps) {
+  const destinationId = destination?.id;
+  const savedRecord = useSavedStore((state) => state.records.find((record) => record.subjectId === destinationId));
+  const setSavedStatus = useSavedStore((state) => state.setStatus);
+  const visited = usePassportStore((state) => state.visitedRecords.some((record) => record.destinationId === destinationId));
+  const markVisited = usePassportStore((state) => state.markVisited);
   if (!destination) return <ScreenContainer><ErrorState actionLabel="Go back" message="This destination is not part of the approved content set." onAction={onBack} title="Destination unavailable" /></ScreenContainer>;
   const hero = getImageById(destination.heroImageId);
   return (
@@ -18,6 +25,11 @@ export function DestinationScreen({ destination, items, onBack, onOpenCredits, o
         <AppText typographyRole="caption" style={styles.eyebrow}>{destination.country} · {destination.continent}</AppText>
         <AppText accessibilityRole="header" typographyRole="display">{destination.name}</AppText>
         {hero ? <Tappable accessibilityLabel="View Cape Town hero image credits" accessibilityRole="link" onPress={() => onOpenCredits(hero.id)} style={styles.creditLink}><AppText typographyRole="caption">Photo credits →</AppText></Tappable> : null}
+        <View accessibilityLabel={`${destination.name} actions`} style={styles.actions}>
+          <Chip label="Saved" onPress={() => setSavedStatus(destination.id, 'destination', 'saved')} selected={savedRecord?.status === 'saved'} />
+          <Chip label="Want to Go" onPress={() => setSavedStatus(destination.id, 'destination', 'wantToGo')} selected={savedRecord?.status === 'wantToGo'} />
+          <Chip label={visited ? 'Visited' : 'Mark visited'} onPress={() => markVisited(destination.id)} selected={visited} />
+        </View>
       </View>
       <View style={styles.story}>
         <AppText accessibilityRole="header" typographyRole="subheading">A city understood together</AppText>
@@ -54,6 +66,7 @@ const styles = StyleSheet.create({
   heroCopy: { gap: spacing.sm, marginBottom: spacing['2xl'], marginTop: spacing.lg },
   eyebrow: { color: colors.brand, textTransform: 'uppercase' },
   creditLink: { alignItems: 'center', alignSelf: 'flex-start', justifyContent: 'center', paddingHorizontal: spacing.sm },
+  actions: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm, marginTop: spacing.sm },
   story: { borderLeftColor: colors.brand, borderLeftWidth: 5, gap: spacing.md, marginBottom: spacing['2xl'], maxWidth: 760, paddingLeft: spacing.lg },
   layer: { borderTopWidth: 4, gap: spacing.lg, marginBottom: spacing['2xl'], paddingTop: spacing.lg },
   item: { backgroundColor: colors.surface, borderColor: colors.border, borderRadius: radius.lg, borderWidth: 1, gap: spacing.md, maxWidth: 760, overflow: 'hidden', paddingBottom: spacing.lg },

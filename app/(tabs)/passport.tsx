@@ -1,5 +1,8 @@
-import { PlaceholderScreen } from '@/components/ui/placeholder-screen';
+import { useRouter } from 'expo-router';
+
+import { PassportScreen } from '@/features/passport/PassportScreen';
 
 export default function PassportRoute() {
-  return <PlaceholderScreen title="Passport" />;
+  const router = useRouter();
+  return <PassportScreen onExplore={() => router.push('/explore')} onOpenDestination={(id) => router.push(`/destination/${id}`)} />;
 }

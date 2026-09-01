@@ -4,22 +4,27 @@ import { AppText, Card, ContentImage, LayerLabel, ScreenContainer, Tappable } fr
 import { curatedCollections, destinations, discoveryItems } from '@/content/contentIndex';
 import { getImageById } from '@/content/selectors';
 import { rankDestinations } from '@/personalization/scoring';
+import { useProfileStore } from '@/state/profileStore';
 import { colors, radius, spacing } from '@/tokens';
 
-interface DiscoverScreenProps { onOpenDestination: (id: string) => void; onOpenItem: (id: string) => void }
+interface DiscoverScreenProps { onOpenDestination: (id: string) => void; onOpenItem: (id: string) => void; onOpenProfile: () => void }
 
-const defaultPersonalization = { interests: [], preferredRegions: [], layerInterests: [] } as const;
-
-export function DiscoverScreen({ onOpenDestination, onOpenItem }: DiscoverScreenProps) {
+export function DiscoverScreen({ onOpenDestination, onOpenItem, onOpenProfile }: DiscoverScreenProps) {
   const featured = destinations[0];
   const hero = getImageById(featured.heroImageId);
-  const ranked = rankDestinations(destinations, defaultPersonalization);
+  const interests = useProfileStore((state) => state.interests);
+  const preferredRegions = useProfileStore((state) => state.preferredRegions);
+  const layerInterests = useProfileStore((state) => state.layerInterests);
+  const profile = { interests, preferredRegions, layerInterests };
+  const ranked = rankDestinations(destinations, profile);
+  const hasPreferences = profile.interests.length > 0 || profile.preferredRegions.length > 0 || profile.layerInterests.length > 0;
 
   return (
     <ScreenContainer>
       <View style={styles.intro}>
         <AppText accessibilityRole="header" typographyRole="display">The world, understood in layers.</AppText>
         <AppText style={styles.secondary}>Begin with one deeply considered city: mountain, ocean, memory, food, and living culture.</AppText>
+        <Tappable accessibilityLabel="Open Profile and preferences" accessibilityRole="link" onPress={onOpenProfile} style={styles.profileLink}><AppText typographyRole="label">Profile & preferences →</AppText></Tappable>
       </View>
 
       <View style={styles.section}>
@@ -64,7 +69,7 @@ export function DiscoverScreen({ onOpenDestination, onOpenItem }: DiscoverScreen
 
       <View style={styles.section}>
         <AppText accessibilityRole="header" typographyRole="subheading">For you</AppText>
-        <AppText style={styles.secondary}>Default editorial ordering is shown until Profile preferences are available in Phase 5.</AppText>
+        <AppText style={styles.secondary}>{hasPreferences ? 'Ranked from your saved interests, regions, and discovery layers.' : 'Default editorial ordering is shown until you choose Profile preferences.'}</AppText>
         {ranked.map((destination) => (
           <Tappable key={destination.id} accessibilityLabel={`Open personalized result ${destination.name}`} accessibilityRole="link" onPress={() => onOpenDestination(destination.id)} style={styles.personalized}>
             <View style={styles.rankMark}><AppText typographyRole="label">01</AppText></View>
@@ -78,6 +83,7 @@ export function DiscoverScreen({ onOpenDestination, onOpenItem }: DiscoverScreen
 
 const styles = StyleSheet.create({
   intro: { gap: spacing.sm, marginBottom: spacing['2xl'], maxWidth: 760 },
+  profileLink: { alignItems: 'center', alignSelf: 'flex-start', justifyContent: 'center', marginTop: spacing.sm, paddingHorizontal: spacing.sm },
   secondary: { color: colors.textSecondary },
   section: { gap: spacing.md, marginBottom: spacing['2xl'] },
   hero: { backgroundColor: colors.surface, borderColor: colors.border, borderRadius: radius.lg, borderWidth: 1, gap: spacing.lg, overflow: 'hidden', paddingBottom: spacing.lg },

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
 import type { ImageAsset } from '@/types';
+import { useReducedMotion } from '@/accessibility/preferences';
 import { colors, radius } from '@/tokens';
 
 import { AppText } from './app-text';
@@ -13,6 +14,7 @@ interface ContentImageProps { image: ImageAsset; style?: StyleProp<ViewStyle>; h
 export function ContentImage({ height = 240, image, style }: ContentImageProps) {
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
+  const reduceMotion = useReducedMotion();
   return (
     <View style={[styles.frame, { height }, style]}>
       {!failed ? (
@@ -26,7 +28,7 @@ export function ContentImage({ height = 240, image, style }: ContentImageProps) 
           onLoadStart={() => setLoading(true)}
           source={{ uri: image.url }}
           style={StyleSheet.absoluteFill}
-          transition={180}
+          transition={reduceMotion ? 0 : 180}
         />
       ) : (
         <View accessibilityLabel={`Image unavailable: ${image.altText}`} accessibilityRole="image" style={styles.fallback}>

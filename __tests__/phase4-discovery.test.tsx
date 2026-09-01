@@ -17,7 +17,7 @@ describe('Phase 4 destination discovery core', () => {
   it('renders the Discover editorial hierarchy and uses navigation callbacks', () => {
     const onOpenDestination = jest.fn();
     const onOpenItem = jest.fn();
-    render(<DiscoverScreen onOpenDestination={onOpenDestination} onOpenItem={onOpenItem} />);
+    render(<DiscoverScreen onOpenDestination={onOpenDestination} onOpenItem={onOpenItem} onOpenProfile={jest.fn()} />);
 
     expect(screen.getByRole('header', { name: 'The world, understood in layers.' })).toBeTruthy();
     expect(screen.getByRole('header', { name: "Editor's Picks" })).toBeTruthy();
