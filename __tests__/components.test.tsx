@@ -60,10 +60,26 @@ describe('Phase 3 shared components', () => {
 
 describe('approved design tokens', () => {
   it('uses the approved palette, discovery layers, and restrained geometry', () => {
-    expect(palette.richCoral).toBe('#D85F5A');
-    expect(discoveryLayerColors).toEqual({ iconic: '#F2B84B', hidden: '#7663B8', culture: '#D85F5A', taste: '#D98FCC', nature: '#5E9C76' });
-    expect(colors.background).toBe('#F7EEF4');
+    expect(palette).toEqual({
+      sunsetVermilion: '#C94F3D', marigoldGold: '#E7A936', atlasBlue: '#3C6E8F', terracottaClay: '#B8643E', orchidViolet: '#8B5FBF',
+      oliveGrove: '#6F8F55', shellPink: '#F3D8CF', sandstone: '#F6E8D6', cloudWhite: '#FFFDF8', carbonInk: '#20242C',
+    });
+    expect(discoveryLayerColors).toEqual({ iconic: '#E7A936', hidden: '#8B5FBF', culture: '#B8643E', taste: '#C94F3D', nature: '#6F8F55' });
+    expect(colors).toEqual(expect.objectContaining({ background: '#F6E8D6', surface: '#FFFDF8', textPrimary: '#20242C', brand: '#C94F3D' }));
+    expect(contrastRatio(colors.textPrimary, colors.background)).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio(colors.primaryActionText, colors.primaryAction)).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio(colors.textSecondary, colors.background)).toBeGreaterThanOrEqual(4.5);
     expect(spacing.lg).toBe(24);
     expect(radius.lg).toBe(20);
   });
 });
+
+function contrastRatio(foreground: string, background: string) {
+  const luminance = (hex: string) => {
+    const channels = hex.match(/[\dA-F]{2}/gi)!.map((channel) => parseInt(channel, 16) / 255).map((channel) => channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4);
+    return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
+  };
+  const foregroundLuminance = luminance(foreground);
+  const backgroundLuminance = luminance(background);
+  return (Math.max(foregroundLuminance, backgroundLuminance) + 0.05) / (Math.min(foregroundLuminance, backgroundLuminance) + 0.05);
+}

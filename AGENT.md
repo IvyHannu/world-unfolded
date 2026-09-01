@@ -230,9 +230,11 @@ Required:
 
 ## 14. Design and Interface Protection
 
-**The final visual direction has not yet been approved.** Codex must not invent the final brand palette, typography, illustration style, or expressive screen design before that direction is explicitly supplied.
+**The final visual direction is approved.** World Unfolded uses a sandstone, vermilion, atlas-inspired editorial direction. Sunset Vermilion (`#C94F3D`) is the primary brand, Sandstone (`#F6E8D6`) is the main application background, Cloud White (`#FFFDF8`) is the primary surface, and Carbon Ink (`#20242C`) is the primary text color.
 
-Codex may establish the semantic token *structure* during foundation work (per `ARCHITECTURE.md` Section 12), but must not assign final visual values or build expressive interface treatments ahead of the approved design direction.
+The discovery layers use Marigold Gold (`#E7A936`) for Iconic, Orchid Violet (`#8B5FBF`) for Hidden, Terracotta Clay (`#B8643E`) for Culture, Sunset Vermilion (`#C94F3D`) for Taste, and Olive Grove (`#6F8F55`) for Nature. Atlas Blue (`#3C6E8F`) supports accessible controls and secondary text. Playfair Display remains the editorial typeface and Inter remains the UI/body typeface.
+
+Codex must preserve this approved semantic token structure and must not introduce competing brand palettes or expressive treatments outside the phase currently authorized.
 
 Codex must specifically avoid, even as placeholder/interim styling:
 
@@ -242,7 +244,7 @@ Codex must specifically avoid, even as placeholder/interim styling:
 - Decorative glass effects.
 - Any interface that reads as a generic AI-generated travel app template.
 
-World Unfolded should eventually feel immersive, editorial, image-led, culturally respectful, spacious, and intentionally designed — this is a direction to protect space for, not something to approximate prematurely with default styling.
+World Unfolded should feel immersive, editorial, image-led, culturally respectful, spacious, intentionally designed, and informed by atlas-like composition without becoming a generic travel or booking interface.
 
 ---
 
