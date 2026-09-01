@@ -111,21 +111,21 @@
 5. Implement the `ImageAsset` model with full attribution fields.
 6. Build `contentIndex.ts` aggregating all content.
 7. Build the content-validation script covering the full checklist in `ARCHITECTURE.md` Section 12/14.
-8. Author **one pilot destination — Cape Town** — with exactly ten discovery items (two per layer), because it naturally exercises all five layers, real coordinates, real photography needs, and at least one practical-information example under each verification variant.
+8. Author **one historical pilot destination — Cape Town** — under the then-approved pilot requirements. This pilot is superseded and removed from the active V1 content set in Corrective Phase 5.5.
 
 **Expected files/directories affected:** `src/types/`, `src/content/vocabularies/`, `src/content/destinations/cape-town.ts`, `src/content/discoveryItems/cape-town/*`, `src/content/images/`, `src/content/contentIndex.ts`, `src/test/contentValidation.ts`.
 
-**Explicit exclusions:** The other five destinations are not authored yet. No screens consume this content yet (Phase 4).
+**Explicit exclusions:** No other destinations were authored in this historical pilot phase. No screens consume this content yet (Phase 4).
 
-**Acceptance criteria:** Content-validation script passes completely against the Cape Town pilot data; all controlled vocabularies enforced at compile time; every image in the pilot has complete attribution; every practical-information entry satisfies its discriminated variant; no coordinates present without passing `isValidCoordinate`.
+**Acceptance criteria:** Content validation passed against the historical Cape Town pilot data; all controlled vocabularies were enforced at compile time; every image in the pilot had complete attribution; every practical-information entry satisfied its discriminated variant; no coordinates were present without passing `isValidCoordinate`.
 
 **Required commands/checks:** TypeScript, content-validation script, unit tests for `isValidCoordinate` and the verification union.
 
-**Manual verification:** Ivy reviews the Cape Town pilot content itself for accuracy, tone, and cultural respectfulness before it is treated as the template for the remaining five destinations.
+**Manual verification:** Ivy reviewed the historical Cape Town pilot content for accuracy, tone, and cultural respectfulness before the pattern was approved. The destination itself is not part of the corrected V1 set.
 
-**Stop condition:** After the pilot destination passes validation and Ivy has reviewed its actual content — this review gate matters as much as the technical checks, since Phase 6 scales this same pattern five more times.
+**Stop condition:** After the historical pilot passed validation and Ivy reviewed its actual content. Corrective Phase 5.5 now applies the proven model to the corrected V1 set.
 
-**Expected Git checkpoint:** "Phase 2: content models, validation, and Cape Town pilot content."
+**Expected Git checkpoint:** "Phase 2: content models, validation, and Cape Town pilot content." (Historical checkpoint; Cape Town is removed from active V1 scope in Corrective Phase 5.5.)
 
 ---
 
@@ -164,7 +164,7 @@
 
 ## Phase 4: Destination Discovery Core
 
-**Objective:** Prove the golden path end-to-end using only the Cape Town pilot content, before scaling to the full dataset.
+**Objective:** Prove the golden path end-to-end using the historical Cape Town pilot content before correcting and scaling the active V1 dataset in Phase 5.5.
 
 **Dependencies:** Phase 3 complete and approved.
 
@@ -173,7 +173,7 @@
 2. Build Explore with the unified filter system.
 3. Build search.
 4. Build combined filters.
-5. Build Destination Details, rendering Cape Town's five discovery layers.
+5. Build Destination Details, rendering the historical pilot's five discovery layers.
 6. Build the five discovery layer presentation (per the approved visual direction).
 7. Build Discovery Item Details.
 8. Build image rendering with `expo-image`, loading/error states.
@@ -183,9 +183,9 @@
 
 **Expected files/directories affected:** `src/features/discover/`, `src/features/explore/`, `src/personalization/`, `src/search/`, corresponding `app/` route files.
 
-**Explicit exclusions:** Only Cape Town content is used. Saved/Passport/Profile are not built yet (Phase 5). Map is not built yet (Phase 7).
+**Explicit exclusions:** Only the historical pilot content was used. Saved/Passport/Profile were not built yet (Phase 5). Map was not built yet (Phase 7).
 
-**Acceptance criteria:** The full golden path (Discover → Destination Details → five layers → Discovery Item Details → back) works correctly using Cape Town; search and filters return correct results against the single-destination dataset; personalization scoring is implemented and unit tested, not stubbed.
+**Acceptance criteria:** The full golden path (Discover → Destination Details → five layers → Discovery Item Details → back) worked correctly using the historical pilot; search and filters returned correct results against the single-destination dataset; personalization scoring was implemented and unit tested, not stubbed.
 
 **Required commands/checks:** TypeScript, lint, unit tests (search, personalization), component tests, Expo web build.
 
@@ -209,7 +209,7 @@
 3. Implement schema versioning and migration handling.
 4. Implement the hydration gate on app start.
 5. Implement corrupted-data recovery (fallback to defaults).
-6. Build Profile's interests and preferred-regions selection UI, wired to real personalization scoring (testable now with Cape Town as the only real content, but logic must be genuine).
+6. Build Profile's interests and preferred-regions selection UI, wired to real personalization scoring (tested initially with the historical single-destination pilot, but the logic must be genuine).
 7. Implement the functional Larger Text preference (discrete type-scale tokens, not a runtime multiplier).
 8. Implement the functional reduced-motion preference (respecting both OS and in-app settings).
 9. Implement Saved and Want to Go status with the one-record-per-subject model.
@@ -236,40 +236,53 @@
 
 ---
 
-## Phase 6: Full Destination Content
+## Corrective Phase 5.5: Destination Scope and Visual Direction
 
-**Objective:** Scale the proven content pattern from Cape Town to the remaining five destinations.
+**Objective:** Replace the historical pilot/obsolete destination scope with the approved seven-destination V1 set and correct the app's active visual direction before any Phase 6 work.
 
-**Dependencies:** Phase 2's pilot pattern approved, and Phase 5 complete (so the full app can actually exercise all six destinations across every feature, not just content in isolation).
+**Dependencies:** Phase 5 complete and verified. The governing-document correction approving this phase must be complete before app or content implementation begins.
 
 **Tasks:**
-1. Author Cross River, Nigeria.
-2. Author Cappadocia, Türkiye.
-3. Author Kyoto, Japan.
-4. Author Rio de Janeiro, Brazil.
-5. Author Banff, Canada.
+1. Remove Cape Town, Cross River, and Banff from active V1 content and all active UI references.
+2. Establish exactly seven V1 destinations: Bali, Marrakech, Santorini, Rome, Cappadocia, Kyoto, and Rio de Janeiro.
+3. Author exactly one discovery item in each of the five layers for every destination (five per destination; thirty-five total).
+4. Preserve the broader `DiscoveryItem` model, optional place/practical fields, coordinate validation, verified practical-information rules, and complete image attribution.
+5. Update content indexes, validation, search, personalization fixtures, Saved/Passport content joins, and UI copy for the corrected content set without weakening tests or persistence behavior.
+6. Replace the active sandstone direction with the approved Tropical Sky, Sunset Coral, Sunset Vermilion, Carbon Ink, Soft Mist, and Ocean Blue semantic tokens.
+7. Correct Discover, Explore, Destination Details, Discovery Item Details, Saved, Passport, and the application shell to feel mobile-first, immersive, image-led, premium, modern, colorful, and destination-led.
+8. Use larger photography, rounded image cards, floating search where appropriate, restrained layer accents, soft depth, and quiet modern bottom navigation.
+9. Preserve Larger Text, Reduced Motion, WCAG 2.2 AA contrast, 48dp targets, keyboard accessibility, screen-reader labels, logical focus order, and all approved Phase 5 persistence behavior.
 
-Each destination requires:
-- Exactly ten discovery items (two per layer).
-- Verified, valid references (destination, image, nearby-destination).
-- Proper image licensing and attribution for every image.
-- Valid coordinates only where the item is genuinely place-based — never forced onto cultural or food items that aren't tied to a specific physical location, and never omitted from ones that are.
-- No invented time-sensitive information — every practical-information entry is verified-and-dated, linked to an official source, or omitted.
-- Full content-validation passing across all sixty items combined.
+**Active V1 destination set:**
+1. Bali, Indonesia
+2. Marrakech, Morocco
+3. Santorini, Greece
+4. Rome, Italy
+5. Cappadocia, Türkiye
+6. Kyoto, Japan
+7. Rio de Janeiro, Brazil
 
-**Expected files/directories affected:** `src/content/destinations/*`, `src/content/discoveryItems/*` for the five new destinations, `src/content/images/*`.
+**Explicit exclusions:** Map implementation; booking; itinerary planning; transport; reviews; social features; backend; authentication; AI recommendations; dark mode; custom collections; and all Phase 6 work.
 
-**Explicit exclusions:** Quantity alone does not satisfy this phase — see acceptance criteria.
+**Acceptance criteria:** Exactly seven destinations and thirty-five discovery items validate; every destination has exactly one item in each layer; removed destinations have no active content or UI references; every image has compliant attribution; practical information satisfies the verified/linked/omitted rule; the corrected visual direction is applied without regressing navigation, search, filters, persistence, Larger Text, Reduced Motion, or accessibility requirements.
 
-**Acceptance criteria:** Content-validation script passes completely across all six destinations and sixty discovery items; **and** Ivy has reviewed each destination's actual content for credibility, cultural respectfulness, and internal consistency — not approved on validation-script results alone.
+**Required commands/checks:** `npx tsc --noEmit`, `npm run lint`, `npm test`, `npm run content:validate`, `npx expo-doctor`, `npx expo export -p web`, and `git diff --check`.
 
-**Required commands/checks:** Content-validation script, TypeScript.
+**Manual verification:** Review all seven destinations and thirty-five items for factual accuracy, cultural respect, imagery, alt text, and visual quality; walk core routes on Expo Go and web; verify persistence and accessibility preferences remain intact.
 
-**Manual verification:** Ivy reads through each destination's content in the app, not just in source files, checking tone and accuracy against the same bar set by the Cape Town pilot.
+**Stop condition:** After all automated checks and manual review pass, report and wait for explicit approval before committing or beginning any later phase.
 
-**Stop condition:** After all six destinations pass both automated validation and Ivy's manual content review.
+**Expected Git checkpoint:** "Phase 5.5: corrected destination scope and colorful visual direction."
 
-**Expected Git checkpoint:** "Phase 6: full six-destination, sixty-item content set."
+---
+
+## Phase 6: Full Destination Content (superseded)
+
+**Status:** Superseded by Corrective Phase 5.5. Do not execute this phase as previously written and do not treat it as authorization for additional destinations or content.
+
+**Objective:** No active implementation objective. The corrected seven-destination, thirty-five-item content set is delivered and reviewed in Phase 5.5.
+
+**Stop condition:** Remains inactive unless Ivy supplies a new, explicit Phase 6 definition and approval in updated governing documents.
 
 ---
 
@@ -277,7 +290,7 @@ Each destination requires:
 
 **Objective:** Implement the map feature across native and web behind the shared contract.
 
-**Dependencies:** Phase 6 complete (map needs real coordinate data across all destinations to be meaningfully tested).
+**Dependencies:** Corrective Phase 5.5 complete and approved; Phase 6 is superseded. The map needs the corrected coordinate data across all seven destinations to be meaningfully tested.
 
 **Tasks:**
 1. Implement `map.types.ts` (the shared props contract).
@@ -299,7 +312,7 @@ Each destination requires:
 
 **Explicit exclusions:** No native map testing claims without actually running it in Expo Go; no web map testing claims without actually opening it in a browser.
 
-**Acceptance criteria:** Markers appear only for valid-coordinate items across all six destinations; attribution is always visible on web; the List view alternative works identically to the map's filtered content; both platforms handle offline/failure gracefully.
+**Acceptance criteria:** Markers appear only for valid-coordinate items across all seven destinations; attribution is always visible on web; the List view alternative works identically to the map's filtered content; both platforms handle offline/failure gracefully.
 
 **Required commands/checks:** TypeScript, lint, coordinate-validation unit tests, manual native and web map testing (this cannot be fully automated — see `ARCHITECTURE.md` Section 14).
 
@@ -362,10 +375,10 @@ Each destination requires:
 3. Verify all state transitions.
 4. Verify empty, loading, error, success, and offline states across every feature.
 5. Verify persistence across restarts, again, on the finished app.
-6. Verify personalization against the full six-destination dataset.
+6. Verify personalization against the full seven-destination dataset.
 7. Verify search and filters against the full dataset.
-8. Confirm all six destinations are present and correct.
-9. Confirm all sixty discovery items are present and correct.
+8. Confirm all seven destinations are present and correct.
+9. Confirm all thirty-five discovery items are present and correct.
 10. Confirm maps work on both native and web with the full dataset.
 11. Confirm image credits are accessible and correct throughout.
 12. Run content validation one final time against the complete dataset.
@@ -432,9 +445,9 @@ Each destination requires:
 
 - Route files stay thin throughout; business logic never migrates into UI components regardless of phase pressure.
 - Content, state, persistence, and UI remain separated in every phase, not just in Phase 1's initial structure.
-- No premature abstraction — sixty items and three persisted stores never justify enterprise-scale patterns.
+- No premature abstraction — thirty-five items and three persisted stores never justify enterprise-scale patterns.
 - No placeholder tourism facts, at any phase, ever.
-- Phase 6 does not begin until the Phase 2 pilot pattern is explicitly approved — quantity never substitutes for a proven pattern.
+- Corrective Phase 5.5 does not begin until its documentation correction is approved; the superseded Phase 6 must not be executed without a new governing definition.
 - Accessibility is built into every phase from Phase 1 onward; Phase 8 is a comprehensive audit, not the first time it's addressed.
 - Tests accompany their relevant phase; they are not deferred to Phase 9 as a bulk exercise.
 - No backend, authentication, AI recommendations, or dark mode at any phase, regardless of how small the addition might seem in context.

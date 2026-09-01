@@ -1,8 +1,8 @@
 # World Unfolded — ARCHITECTURE.md (V1, revised)
 
-**Status:** Derived from the locked `PRD.md`. This document does not change product scope, the six destinations, the five discovery layers, primary navigation, or platform. This revision corrects technical inaccuracies and underspecified areas identified in review.
+**Status:** Derived from the locked `PRD.md`. This document does not change product scope, the seven destinations, the five discovery layers, primary navigation, or platform. This revision incorporates the approved Phase 5.5 destination, content-count, and visual-direction corrections.
 
-**⚠ Required PRD alignment note:** Cross River and Cappadocia are regions, not cities, and Banff is a town/national-park area, not a conventional city. "Cities visited" cannot be derived accurately from this destination set. This architecture uses **Countries visited** and **Destinations visited** (Section 5/6). Before implementation begins, `PRD.md` must be updated to replace "cities visited" with "destinations visited" throughout — this document does not modify the locked PRD itself, but implementation must not proceed on the old wording.
+**PRD alignment:** Passport uses **Countries visited** and **Destinations visited** because the destination model supports different locality types. The governing documents and implementation use that wording consistently.
 
 **Audience:** Codex will implement directly from this document. Where an exact dependency version or platform behavior cannot be verified here, it is explicitly flagged for confirmation during project setup rather than invented.
 
@@ -107,8 +107,8 @@ Defined as `const` arrays with a derived union type each, so the same list is us
 
 ```ts
 export const REGIONS = [
-  'west_africa', 'southern_africa', 'western_asia',
-  'east_asia', 'south_america', 'north_america',
+  'southeast_asia', 'north_africa', 'southern_europe',
+  'western_asia', 'east_asia', 'south_america',
 ] as const;
 export type Region = typeof REGIONS[number];
 
@@ -133,6 +133,8 @@ export type LocalityType = typeof LOCALITY_TYPES[number];
 
 Free-text strings are not used for any of the above — every value must come from its defined list, enforced at compile time and re-checked by the content-validation script (Section 12).
 
+The active V1 destination registry contains exactly: Bali, Indonesia; Marrakech, Morocco; Santorini, Greece; Rome, Italy; Cappadocia, Türkiye; Kyoto, Japan; and Rio de Janeiro, Brazil.
+
 ### Typed models
 
 ```ts
@@ -142,7 +144,7 @@ interface Destination {
   country: string;
   continent: string;
   region: Region;
-  localityType: LocalityType;        // e.g. Cross River = 'region', Banff = 'national_park', Cape Town = 'city'
+  localityType: LocalityType;        // e.g. Bali = 'mixed_region', Rome = 'city', Cappadocia = 'region'
   culturalOverview: string;
   heroImageId: string;
   nearbyDestinationIds: string[];
@@ -396,7 +398,16 @@ Unchanged from the prior revision: `useReducedMotion()` reads both the OS settin
 
 ## 12. Design System Architecture
 
-Unchanged from the prior revision — token structure only (color, typography, spacing, radius, elevation, motion, breakpoints, component variants), light mode only for V1, all color usage routed through semantic tokens so dark mode remains addable later without structural rework.
+The active visual direction is colorful, modern, mobile-first tourism: immersive, image-led, premium, clean, and destination-led. It must not read as beige, ivory, dashboard-like, arcade-like, or booking-oriented.
+
+- Main background: Tropical Sky (`#D7F3F4`)
+- Secondary warm background: Sunset Coral (`#FFD7C2`)
+- Primary action and brand accent: Sunset Vermilion (`#C94F3D`)
+- Primary text: Carbon Ink (`#20242C`)
+- Quiet card surface: Soft Mist (`#F7FEFC`)
+- Controlled accent blue: Ocean Blue (`#1677A8`)
+
+Photography is the primary visual material. Layer colors remain restrained semantic accents for chips, labels, icons, and small highlights rather than large saturated surfaces. Playfair Display remains the destination/editorial typeface and Inter remains the UI/body typeface. The token system continues to cover color, typography, spacing, radius, elevation, motion, breakpoints, and component variants. V1 remains light-mode only.
 
 ---
 
@@ -428,7 +439,7 @@ No loading state should be simulated or shown for static content that is already
 | Navigation tests | *(Tool to be confirmed at setup)* | Core route transitions, including the root-to-Discover redirect. **The specific navigation testing utility and its compatibility with the installed Expo Router version must be verified during project setup rather than assumed here** — the prior revision named a testing approach without confirming this compatibility. |
 | Persistence tests | Jest, AsyncStorage mocked | Hydration, schema migration, corrupted-data fallback, duplicate Saved-entry prevention (Section 8) |
 | Personalization tests | Jest | Fixtures covering no-preferences, interest match, region match, layer-interest match, combined match, and tie-break scenarios |
-| Search/filtering tests | Jest | Known queries against the actual sixty-item dataset |
+| Search/filtering tests | Jest | Known queries against the actual thirty-five-item dataset |
 | Accessibility tests | `@testing-library/react-native` accessibility queries, plus manual pass | Correct roles/labels/disabled states on `<Tappable>` and key components; manual screen-reader pass (VoiceOver/TalkBack) since full automated coverage isn't available for React Native |
 | Native + Expo web smoke tests | Jest + React Native Web | Renders-without-crashing checks on both targets, including the root route correctly opening Discover |
 | Manual map testing | Manual | Native map behavior verified manually in Expo Go (now correctly not requiring a dev client for initial development, per Section 9); web map verified manually in a browser |
@@ -449,7 +460,7 @@ No loading state should be simulated or shown for static content that is already
 2. Every `DiscoveryItem.destinationId` references an existing destination.
 3. Every referenced `imageId` (on destinations and discovery items) exists in the image registry.
 4. Every `nearbyDestinationIds` entry references an existing, different destination.
-5. Every destination has exactly two discovery items per discovery layer (checked per layer, not only as a total of ten).
+5. Every destination has exactly one discovery item per discovery layer (checked per layer, not only as a total of five).
 6. Every `region`, `interestTags`, `layerTags`, `type`, and `localityType` value comes from its defined controlled vocabulary (Section 4).
 7. Every present `location` passes `isValidCoordinate()` — coordinate validity is checked without regard to `DiscoveryItemType`.
 8. Every `ImageAsset` has complete attribution (`source`, `creatorName`, `licenseOrTerms`, `representedSubjectId`, `altText`).
@@ -462,7 +473,7 @@ No loading state should be simulated or shown for static content that is already
 
 ## 15. Performance
 
-Unchanged from the prior revision — standard `FlatList`, `expo-image` default caching, in-memory array filtering, filtered-subset-only map marker rendering, Zustand selector-based re-render avoidance, negligible hydration cost at this data scale. No indexing engines, virtualization libraries, or aggressive memoization strategies are justified for sixty discovery items.
+Unchanged from the prior revision — standard `FlatList`, `expo-image` default caching, in-memory array filtering, filtered-subset-only map marker rendering, Zustand selector-based re-render avoidance, negligible hydration cost at this data scale. No indexing engines, virtualization libraries, or aggressive memoization strategies are justified for thirty-five discovery items.
 
 ---
 
@@ -519,7 +530,7 @@ The prior revision incorrectly stated that external image and map requests "carr
 | Persistence | AsyncStorage + Zustand persist middleware | Standard Expo-compatible KV store | `expo-sqlite` (unnecessary relational overhead) |
 | Static content format | TypeScript const modules, with controlled-vocabulary const arrays | Compile-time safety and editor autocomplete matching the actual authoring workflow | Raw JSON (no compile-time safety) |
 | Map implementation | `react-native-maps` (native, works in Expo Go for development) + `react-leaflet`/OpenStreetMap (web), behind a `MapSurface.native/.web` + shared `map.types.ts` contract | Only combination giving a genuinely working map on both native and Expo web without a paid web map key; corrected structure avoids competing same-named files | A single cross-platform map library (none adequately support both targets); the prior `MapView.tsx`/`.native`/`.web` naming (ambiguous, corrected) |
-| Passport counting | Countries visited + Destinations visited (not "cities") | Cross River/Cappadocia are regions and Banff is a town/national park — "cities" cannot be derived accurately | Deriving or forcing a "city" value onto every destination |
+| Passport counting | Countries visited + Destinations visited (not "cities") | The destination model supports cities, regions, and mixed localities, so "cities" is not a valid universal count | Deriving or forcing a "city" value onto every destination |
 | Practical info verification | Discriminated union (`verified` / `linked-to-source` / `not-applicable`) with required fields per variant | Makes invalid states (e.g., a link with no URL) structurally unrepresentable | A loose union of an object and string literals, which previously allowed inconsistent shapes |
 | Saved/Want to Go | Single `status: 'saved' | 'wantToGo'` field per subject, one record per subject, status changes replace in place | One deterministic model, no duplicate-record ambiguity | Two independent boolean flags or separate lists, which could let both states coexist ambiguously |
 | Map visibility | Derived via `isValidCoordinate()`, never `Boolean(item.location)`, never gated by item type | Prevents invalid coordinates (out of range, non-finite) from producing markers; allows any item type representing a real place to appear on the map | `Boolean(item.location)` alone, or excluding certain item types from map eligibility by default |

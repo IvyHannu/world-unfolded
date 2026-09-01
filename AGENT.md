@@ -143,18 +143,19 @@ Codex must preserve:
 
 Codex must never invent or publish tourism facts as verified. Content must satisfy:
 
-1. Exactly six destinations.
-2. Exactly two discovery items per layer per destination.
-3. Sixty discovery items total.
-4. Unique IDs across destinations, discovery items, and images.
-5. Valid references (destination references, image references, nearby-destination references).
-6. Controlled vocabulary values only — no free-text substitutes for region, interests, layers, item type, or locality type.
-7. At least one image per discovery item.
-8. A valid hero image per destination.
-9. Proper image attribution on every image (source, creator, license, represented subject, alt text).
-10. Valid HTTPS official sources wherever a source URL is used.
-11. Practical information that is either verified and dated, linked to an official source, or omitted entirely — never shown as unverified filler.
-12. No placeholder opening hours or accessibility claims presented as if they were real, current information.
+1. Exactly seven destinations.
+2. Exactly one discovery item per layer per destination.
+3. Thirty-five discovery items total.
+4. The active destination set is exactly Bali, Marrakech, Santorini, Rome, Cappadocia, Kyoto, and Rio de Janeiro.
+5. Unique IDs across destinations, discovery items, and images.
+6. Valid references (destination references, image references, nearby-destination references).
+7. Controlled vocabulary values only — no free-text substitutes for region, interests, layers, item type, or locality type.
+8. At least one image per discovery item.
+9. A valid hero image per destination.
+10. Proper image attribution on every image (source, creator, license, represented subject, alt text).
+11. Valid HTTPS official sources wherever a source URL is used.
+12. Practical information that is either verified and dated, linked to an official source, or omitted entirely — never shown as unverified filler.
+13. No placeholder opening hours or accessibility claims presented as if they were real, current information.
 
 **Content validation must run and pass before any content-related phase is accepted as complete.**
 
@@ -230,21 +231,24 @@ Required:
 
 ## 14. Design and Interface Protection
 
-**The final visual direction is approved.** World Unfolded uses a sandstone, vermilion, atlas-inspired editorial direction. Sunset Vermilion (`#C94F3D`) is the primary brand, Sandstone (`#F6E8D6`) is the main application background, Cloud White (`#FFFDF8`) is the primary surface, and Carbon Ink (`#20242C`) is the primary text color.
+**The corrected final visual direction is approved.** World Unfolded uses a colorful, modern tourism direction that is mobile-first, immersive, image-led, premium, clean, and destination-led. Tropical Sky (`#D7F3F4`) is the main background, Sunset Coral (`#FFD7C2`) is the secondary warm background, Sunset Vermilion (`#C94F3D`) is the primary action and brand accent, Carbon Ink (`#20242C`) is the primary text color, Soft Mist (`#F7FEFC`) is the quiet card surface, and Ocean Blue (`#1677A8`) is the controlled accent blue.
 
-The discovery layers use Marigold Gold (`#E7A936`) for Iconic, Orchid Violet (`#8B5FBF`) for Hidden, Terracotta Clay (`#B8643E`) for Culture, Sunset Vermilion (`#C94F3D`) for Taste, and Olive Grove (`#6F8F55`) for Nature. Atlas Blue (`#3C6E8F`) supports accessible controls and secondary text. Playfair Display remains the editorial typeface and Inter remains the UI/body typeface.
+Discovery-layer colors are restrained accents only, used through small chips, icons, labels, and highlights rather than large saturated blocks. Playfair Display remains the destination/editorial typeface and Inter remains the UI/body typeface.
 
 Codex must preserve this approved semantic token structure and must not introduce competing brand palettes or expressive treatments outside the phase currently authorized.
 
 Codex must specifically avoid, even as placeholder/interim styling:
 
 - Generic, repeated card grids applied uniformly regardless of content type.
+- Beige or ivory-dominant application surfaces.
+- Dashboard-like or arcade-like compositions.
+- Booking-app visual language or transactional calls to action.
 - Unnecessary gradients.
 - Excessive shadows.
 - Decorative glass effects.
 - Any interface that reads as a generic AI-generated travel app template.
 
-World Unfolded should feel immersive, editorial, image-led, culturally respectful, spacious, intentionally designed, and informed by atlas-like composition without becoming a generic travel or booking interface.
+World Unfolded should feel immersive, colorful, editorial, image-led, culturally respectful, spacious, intentionally designed, and unmistakably destination-led without becoming a generic travel or booking interface.
 
 ---
 
@@ -258,7 +262,7 @@ Codex must:
 4. Avoid `any`.
 5. Use shared components and design tokens rather than one-off styling.
 6. Avoid premature abstraction.
-7. Avoid overengineering for a dataset of sixty static discovery items — no indexing engines, virtualization libraries, or unnecessary caching layers.
+7. Avoid overengineering for a dataset of thirty-five static discovery items — no indexing engines, virtualization libraries, or unnecessary caching layers.
 8. Remove unused code and imports.
 9. Keep functions and files focused on a single responsibility.
 10. Add comments only where they explain a nonobvious decision, not as narration of obvious code.

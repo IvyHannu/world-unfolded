@@ -41,6 +41,17 @@ One place that organizes a destination's iconic sites, hidden gems, culture, foo
 5. Useful information without overwhelming the user.
 6. Accessibility from the beginning, following WCAG and Material 3 guidance.
 
+### Approved visual direction
+
+World Unfolded uses a colorful, modern tourism direction. The experience must feel mobile-first, immersive, image-led, premium, modern, colorful, and destination-led. It must not feel beige, ivory, dashboard-like, arcade-like, or like a booking app.
+
+- Main background: Tropical Sky (`#D7F3F4`)
+- Secondary warm background: Sunset Coral (`#FFD7C2`)
+- Primary action and brand accent: Sunset Vermilion (`#C94F3D`)
+- Primary text: Carbon Ink (`#20242C`)
+- Quiet card surface: Soft Mist (`#F7FEFC`)
+- Controlled accent blue: Ocean Blue (`#1677A8`)
+
 ---
 
 ## 6. Confirmed V1 Scope
@@ -131,7 +142,7 @@ One place that organizes a destination's iconic sites, hidden gems, culture, foo
 - FR4: The system shall support text search across destination and discovery item names.
 
 **Destination Details**
-- FR5: Each destination shall display all five discovery layers, each containing exactly two discovery items.
+- FR5: Each destination shall display all five discovery layers, each containing exactly one discovery item.
 - FR6: Each destination shall display at least one nearby destination, where applicable.
 
 **Discovery Item Details**
@@ -237,7 +248,7 @@ Each discovery item contains only the fields relevant to its type — a cultural
 **Visited Record**
 - destination id, date marked visited, stamp reference
 
-Each of the six confirmed destinations must contain exactly two discovery items per discovery layer (ten discovery items total per destination; sixty across V1).
+Each of the seven confirmed destinations must contain exactly one discovery item per discovery layer (five discovery items total per destination; thirty-five across V1).
 
 ---
 
@@ -300,7 +311,7 @@ Unverified, illustrative, or placeholder practical information must never be pre
 
 ## 17. Acceptance Criteria
 
-- All six confirmed destinations are present, each with exactly two discovery items per discovery layer (ten discovery items each; sixty total).
+- All seven confirmed destinations are present, each with exactly one discovery item per discovery layer (five discovery items each; thirty-five total).
 - Search returns correct results across destination and discovery item names, and filtering by continent, country, interest, category, and region works correctly in the unified filter.
 - Discover ranking visibly and correctly changes when a user updates interests or preferred regions; falls back to default editorial ordering when no preferences are set.
 - Profile, Saved, Want to Go, and Passport data persist correctly after fully closing and reopening the app, with no account or sign-in required.
@@ -324,7 +335,7 @@ Flights and hotel booking · transport booking · payments · full itinerary pla
 
 ## 19. Success Criteria
 
-- Complete, working discovery flow end-to-end across all six destinations (search → destination → five layers → discovery item → save).
+- Complete, working discovery flow end-to-end across all seven destinations (search → destination → five layers → discovery item → save).
 - Functioning map showing only valid, coordinate-bearing discovery items, with correct category filtering.
 - Rules-based personalization visibly and correctly affecting Discover ordering.
 - Local persistence working correctly across app restarts with no authentication required.
@@ -338,11 +349,12 @@ Deliberately excluded from success criteria: user counts, engagement metrics, or
 
 ## 20. Confirmed Destination Set
 
-1. **Cross River, Nigeria** — Obudu Mountain Resort, waterfalls, forests, wildlife, cultural heritage, local food, lesser-known natural attractions.
-2. **Cape Town, South Africa** — dramatic mountains, coastline, culture, food, iconic landmarks, nearby natural experiences.
-3. **Cappadocia, Türkiye** — landscapes, cave architecture, underground cities, cultural history, food, balloon scenery.
-4. **Kyoto, Japan** — temples, gardens, traditional districts, seasonal landscapes, food culture, quieter local discoveries.
-5. **Rio de Janeiro, Brazil** — mountains, beaches, landmarks, neighbourhood culture, food, nature, lesser-known viewpoints.
-6. **Banff, Canada** — mountain scenery, turquoise lakes, wildlife, trails, local culture, quieter natural attractions.
+1. **Bali, Indonesia**
+2. **Marrakech, Morocco**
+3. **Santorini, Greece**
+4. **Rome, Italy**
+5. **Cappadocia, Türkiye**
+6. **Kyoto, Japan**
+7. **Rio de Janeiro, Brazil**
 
-Each destination contains exactly two discovery items per discovery layer (Iconic, Hidden, Culture, Taste, Nature) — sixty discovery items across V1, sufficient content depth for a working portfolio MVP without implying complete global tourism coverage.
+Each destination contains exactly one discovery item per discovery layer (Iconic, Hidden, Culture, Taste, Nature) — thirty-five discovery items across V1, sufficient content depth for a working portfolio MVP without implying complete global tourism coverage.
