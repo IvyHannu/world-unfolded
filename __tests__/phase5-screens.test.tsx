@@ -37,7 +37,7 @@ describe('Phase 5 screens and preferences', () => {
   });
 
   it('sets one Saved status per subject and marks Bali visited', () => {
-    render(<DestinationScreen destination={destinations[0]} items={discoveryItems} onBack={jest.fn()} onOpenCredits={jest.fn()} onOpenItem={jest.fn()} />);
+    render(<DestinationScreen destination={destinations[0]} items={discoveryItems} onBack={jest.fn()} onOpenCredits={jest.fn()} onOpenItem={jest.fn()} onOpenLayer={jest.fn()} />);
     fireEvent.press(screen.getByRole('button', { name: 'Save Bali' }));
     fireEvent.press(screen.getByRole('button', { name: 'Mark Bali Want to Go' }));
     fireEvent.press(screen.getByRole('button', { name: 'Mark Bali visited' }));

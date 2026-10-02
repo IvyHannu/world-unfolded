@@ -60,9 +60,9 @@ describe('Phase 3 shared components', () => {
 
 describe('approved design tokens', () => {
   it('uses the approved palette, discovery layers, and restrained geometry', () => {
-    expect(palette).toEqual({ tropicalSky: '#D7F3F4', sunsetCoral: '#FFD7C2', sunsetVermilion: '#C94F3D', carbonInk: '#20242C', softMist: '#F7FEFC', oceanBlue: '#1677A8', goldenSun: '#F2B84B', orchidViolet: '#8B5FBF', terracottaClay: '#B8643E', palmGreen: '#6F8F55' });
+    expect(palette).toEqual({ softCloudIvory: '#FFF8EF', cloudWhite: '#FFFDF8', atlasBlue: '#247BA0', tropicalSky: '#D7F3F4', sunsetCoral: '#FFD7C2', sunsetVermilion: '#C94F3D', carbonInk: '#20242C', softMist: '#F7FEFC', oceanBlue: '#1677A8', goldenSun: '#F2B84B', orchidViolet: '#8B5FBF', terracottaClay: '#B8643E', palmGreen: '#6F8F55' });
     expect(discoveryLayerColors).toEqual({ iconic: '#F2B84B', hidden: '#8B5FBF', culture: '#B8643E', taste: '#C94F3D', nature: '#6F8F55' });
-    expect(colors).toEqual(expect.objectContaining({ background: '#D7F3F4', surface: '#F7FEFC', textPrimary: '#20242C', brand: '#C94F3D', primaryAction: '#1677A8' }));
+    expect(colors).toEqual(expect.objectContaining({ background: '#FFF8EF', surface: '#FFFDF8', textPrimary: '#20242C', brand: '#C94F3D', primaryAction: '#BF4938', focus: '#247BA0' }));
     expect(contrastRatio(colors.textPrimary, colors.background)).toBeGreaterThanOrEqual(4.5);
     expect(contrastRatio(colors.primaryActionText, colors.primaryAction)).toBeGreaterThanOrEqual(4.5);
     expect(contrastRatio(colors.textSecondary, colors.background)).toBeGreaterThanOrEqual(4.5);

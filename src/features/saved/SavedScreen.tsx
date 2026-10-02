@@ -5,7 +5,7 @@ import { AppText, Chip, EmptyState, ScreenContainer, Tappable } from '@/componen
 import { getDestinationById, getDiscoveryItemById } from '@/content/selectors';
 import { usePassportStore } from '@/state/passportStore';
 import { useSavedStore } from '@/state/savedStore';
-import { colors, radius, spacing } from '@/tokens';
+import { colors, elevation, radius, spacing } from '@/tokens';
 import type { SavedItem } from '@/types';
 
 type Filter = 'all' | SavedItem['status'];
@@ -54,6 +54,6 @@ export function SavedScreen({ onExplore, onOpenDestination, onOpenItem, onOpenPa
 const styles = StyleSheet.create({
   intro: { gap: spacing.sm, marginBottom: spacing.xl }, secondary: { color: colors.textSecondary },
   filters: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm, marginBottom: spacing.xl },
-  record: { backgroundColor: colors.surface, borderColor: colors.border, borderRadius: radius.lg, borderWidth: 1, gap: spacing.md, marginBottom: spacing.lg, padding: spacing.lg },
+  record: { backgroundColor: colors.surface, borderRadius: radius.lg, gap: spacing.md, marginBottom: spacing.lg, padding: spacing.lg, ...elevation.raised },
   open: { gap: spacing.xs, justifyContent: 'center' }, actions: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm }, remove: { alignItems: 'center', justifyContent: 'center', paddingHorizontal: spacing.sm },
 });

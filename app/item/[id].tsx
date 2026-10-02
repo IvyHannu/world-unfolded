@@ -7,5 +7,5 @@ export default function DiscoveryItemRoute() {
   const router = useRouter();
   const params = useLocalSearchParams<{ id?: string | string[] }>();
   const id = Array.isArray(params.id) ? params.id[0] : params.id;
-  return <DiscoveryItemScreen item={id ? getDiscoveryItemById(id) : undefined} onBack={() => router.back()} onOpenCredits={(imageId) => router.push(`/image-credits/${imageId}`)} />;
+  return <DiscoveryItemScreen item={id ? getDiscoveryItemById(id) : undefined} onBack={() => router.back()} onOpenCredits={(imageId) => router.push(`/image-credits/${imageId}`)} onOpenItem={(itemId) => router.push(`/item/${itemId}`)} />;
 }

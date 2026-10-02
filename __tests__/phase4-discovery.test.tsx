@@ -6,6 +6,7 @@ import { DestinationScreen } from '@/features/destination/DestinationScreen';
 import { DiscoveryItemScreen } from '@/features/destination/DiscoveryItemScreen';
 import { ImageCreditsScreen } from '@/features/destination/ImageCreditsScreen';
 import { DiscoverScreen } from '@/features/discover/DiscoverScreen';
+import { LayerStoryScreen } from '@/features/discover/LayerStoryScreen';
 import { ExploreScreen } from '@/features/explore/ExploreScreen';
 
 const destination = destinations[0];
@@ -16,27 +17,47 @@ const baliImage = images.find((image) => image.id === 'bali-hero')!;
 describe('Phase 4 destination discovery core', () => {
   it('renders the Discover editorial hierarchy and uses navigation callbacks', () => {
     const onOpenDestination = jest.fn();
-    const onOpenItem = jest.fn();
-    render(<DiscoverScreen onExplore={jest.fn()} onOpenDestination={onOpenDestination} onOpenItem={onOpenItem} onOpenProfile={jest.fn()} />);
+    const onOpenLayer = jest.fn();
+    render(<DiscoverScreen onExplore={jest.fn()} onOpenDestination={onOpenDestination} onOpenLayer={onOpenLayer} onOpenProfile={jest.fn()} />);
 
-    expect(screen.getByRole('header', { name: 'Discover the world, your way.' })).toBeTruthy();
-    expect(screen.getByRole('header', { name: 'Featured destination' })).toBeTruthy();
-    expect(screen.getByRole('header', { name: 'Curated experiences' })).toBeTruthy();
+    expect(screen.getByRole('header', { name: 'Unfold somewhere unforgettable.' })).toBeTruthy();
+    expect(screen.getByRole('header', { name: 'Choose your way in' })).toBeTruthy();
+    expect(screen.getByRole('header', { name: 'Featured Destination' })).toBeTruthy();
+    expect(screen.getByRole('header', { name: 'Passport picks' })).toBeTruthy();
     fireEvent.press(screen.getByLabelText('Open featured destination Bali'));
-    fireEvent.press(screen.getByLabelText('Open Tanah Lot'));
+    fireEvent.press(screen.getByLabelText('Open Culture Layer'));
     expect(onOpenDestination).toHaveBeenCalledWith('bali');
-    expect(onOpenItem).toHaveBeenCalledWith('tanah-lot');
+    expect(onOpenLayer).toHaveBeenCalledWith('culture');
   });
 
   it('groups exactly one Bali item in each discovery layer', () => {
     const onOpenItem = jest.fn();
-    render(<DestinationScreen destination={destination} items={discoveryItems.filter((item) => item.destinationId === destination.id)} onBack={jest.fn()} onOpenCredits={jest.fn()} onOpenItem={onOpenItem} />);
+    render(<DestinationScreen destination={destination} items={discoveryItems.filter((item) => item.destinationId === destination.id)} onBack={jest.fn()} onOpenCredits={jest.fn()} onOpenItem={onOpenItem} onOpenLayer={jest.fn()} />);
 
     for (const layer of ['Iconic', 'Hidden', 'Culture', 'Taste', 'Nature']) {
       expect(screen.getByLabelText(`${layer} discovery layer`)).toBeTruthy();
     }
     fireEvent.press(screen.getByLabelText('Open Tanah Lot'));
     expect(onOpenItem).toHaveBeenCalledWith('tanah-lot');
+  });
+
+  it('renders a discovery layer as an editorial story', () => {
+    const onOpenItem = jest.fn();
+    render(<LayerStoryScreen layer="culture" onBack={jest.fn()} onOpenItem={onOpenItem} />);
+    expect(screen.getByRole('header', { name: 'Culture Layer' })).toBeTruthy();
+    expect(screen.getByRole('header', { name: 'Stories through this layer' })).toBeTruthy();
+    fireEvent.press(screen.getByLabelText('Open Subak Water Temples'));
+    expect(onOpenItem).toHaveBeenCalledWith('subak');
+  });
+
+  it('scopes a discovery layer to one destination when a destination id is provided', () => {
+    const onOpenItem = jest.fn();
+    render(<LayerStoryScreen destinationId="bali" layer="culture" onBack={jest.fn()} onOpenItem={onOpenItem} />);
+    expect(screen.getByText('Bali through the Culture Layer.')).toBeTruthy();
+    expect(screen.getByLabelText('Open Subak Water Temples')).toBeTruthy();
+    expect(screen.queryByLabelText('Open Medina Craft Souks')).toBeNull();
+    fireEvent.press(screen.getByLabelText('Open Subak Water Temples'));
+    expect(onOpenItem).toHaveBeenCalledWith('subak');
   });
 
   it('renders locations and omits absent optional fields', () => {
