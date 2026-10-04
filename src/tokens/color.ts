@@ -8,7 +8,7 @@ export const palette = {
   carbonInk: '#20242C',
   softMist: '#F7FEFC',
   oceanBlue: '#1677A8',
-  goldenSun: '#F2B84B',
+  goldenSun: '#E7A936',
   orchidViolet: '#8B5FBF',
   terracottaClay: '#B8643E',
   palmGreen: '#6F8F55',

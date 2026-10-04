@@ -27,7 +27,7 @@ export function validateContent(content: ContentSet): string[] {
   const imageIds = new Set(content.images.map(({ id }) => id));
 
   if (content.destinations.length !== 7) errors.push(`Expected 7 destinations, received ${content.destinations.length}.`);
-  if (content.discoveryItems.length !== 35) errors.push(`Expected 35 discovery items, received ${content.discoveryItems.length}.`);
+  if (content.discoveryItems.length !== 38) errors.push(`Expected 38 discovery items, received ${content.discoveryItems.length}.`);
 
   if (hasDuplicates(content.destinations.map(({ id }) => id))) errors.push('Destination IDs must be unique.');
   if (hasDuplicates(content.discoveryItems.map(({ id }) => id))) errors.push('Discovery item IDs must be unique.');
@@ -44,7 +44,8 @@ export function validateContent(content: ContentSet): string[] {
     }
     for (const layer of DISCOVERY_LAYERS) {
       const count = content.discoveryItems.filter((item) => item.destinationId === destination.id && item.layer === layer).length;
-      if (count !== 1) errors.push(`${destination.id}: expected 1 ${layer} item, received ${count}.`);
+      const expectedCount = destination.id === 'bali' && ['iconic', 'culture', 'nature'].includes(layer) ? 2 : 1;
+      if (count !== expectedCount) errors.push(`${destination.id}: expected ${expectedCount} ${layer} item${expectedCount === 1 ? '' : 's'}, received ${count}.`);
     }
   }
 

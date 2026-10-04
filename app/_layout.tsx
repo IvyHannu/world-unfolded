@@ -41,8 +41,8 @@ export default function RootLayout() {
       <Stack screenOptions={{ contentStyle: { backgroundColor: colors.background }, headerStyle: { backgroundColor: colors.surface }, headerTintColor: colors.textPrimary, headerTitleStyle: { fontFamily: fontFamilies.uiSemibold } }}>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="explore" options={{ title: 'Explore' }} />
-        <Stack.Screen name="destination/[id]" options={{ title: 'Destination' }} />
+        <Stack.Screen name="explore" options={{ headerShown: false }} />
+        <Stack.Screen name="destination/[destinationId]" options={{ headerShown: false }} />
         <Stack.Screen name="layer/[layer]" options={{ headerShown: false }} />
         <Stack.Screen name="item/[id]" options={{ headerShown: false }} />
         <Stack.Screen name="image-credits/[imageId]" options={{ title: 'Image Credits' }} />

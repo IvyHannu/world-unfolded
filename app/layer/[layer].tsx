@@ -7,5 +7,12 @@ export default function LayerStoryRoute() {
   const params = useLocalSearchParams<{ destinationId?: string | string[]; layer?: string | string[] }>();
   const layer = Array.isArray(params.layer) ? params.layer[0] : params.layer;
   const destinationId = Array.isArray(params.destinationId) ? params.destinationId[0] : params.destinationId;
-  return <LayerStoryScreen destinationId={destinationId} layer={layer} onBack={() => router.back()} onOpenItem={(id) => router.push(`/item/${id}`)} />;
+  return <LayerStoryScreen
+    destinationId={destinationId}
+    layer={layer}
+    onBack={() => router.back()}
+    onOpenItem={(id) => router.push(`/item/${id}`)}
+    onOpenLayer={(nextLayer) => router.push({ pathname: '/layer/[layer]', params: { destinationId: 'bali', layer: nextLayer } })}
+    onOpenTab={(tab) => tab === 'explore' ? router.push('/explore') : router.push(`/(tabs)/${tab}`)}
+  />;
 }

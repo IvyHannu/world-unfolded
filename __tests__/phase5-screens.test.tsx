@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
 import { StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { AppText, ContentImage } from '@/components/ui';
 import { destinations, discoveryItems, images } from '@/content/contentIndex';
@@ -37,20 +38,46 @@ describe('Phase 5 screens and preferences', () => {
   });
 
   it('sets one Saved status per subject and marks Bali visited', () => {
-    render(<DestinationScreen destination={destinations[0]} items={discoveryItems} onBack={jest.fn()} onOpenCredits={jest.fn()} onOpenItem={jest.fn()} onOpenLayer={jest.fn()} />);
+    render(<SafeAreaProvider initialMetrics={{ frame: { x: 0, y: 0, width: 390, height: 844 }, insets: { top: 0, right: 0, bottom: 0, left: 0 } }}><DestinationScreen destination={destinations[0]} items={discoveryItems} onBack={jest.fn()} onOpenItem={jest.fn()} onOpenLayer={jest.fn()} onOpenTab={jest.fn()} /></SafeAreaProvider>);
     fireEvent.press(screen.getByRole('button', { name: 'Save Bali' }));
     fireEvent.press(screen.getByRole('button', { name: 'Mark Bali Want to Go' }));
-    fireEvent.press(screen.getByRole('button', { name: 'Mark Bali visited' }));
+    fireEvent.press(screen.getByRole('button', { name: 'Mark Bali visited in Passport' }));
     expect(useSavedStore.getState().records).toEqual([expect.objectContaining({ subjectId: 'bali', status: 'wantToGo' })]);
     expect(usePassportStore.getState().visitedRecords).toEqual([expect.objectContaining({ destinationId: 'bali' })]);
+    expect(screen.getByRole('button', { name: 'Bali visited in Passport' })).toBeTruthy();
   });
 
-  it('renders the unified Saved list and its status filters', () => {
+  it('keeps only Overview, Layers, and Places sections and opens Bali place details', () => {
+    const onOpenItem = jest.fn();
+    render(<SafeAreaProvider initialMetrics={{ frame: { x: 0, y: 0, width: 390, height: 844 }, insets: { top: 0, right: 0, bottom: 0, left: 0 } }}><DestinationScreen destination={destinations[0]} items={discoveryItems} onBack={jest.fn()} onOpenItem={onOpenItem} onOpenLayer={jest.fn()} onOpenTab={jest.fn()} /></SafeAreaProvider>);
+    expect(screen.getByRole('header', { name: 'About Bali' })).toBeTruthy();
+    expect(screen.getByRole('header', { name: 'Featured places' })).toBeTruthy();
+    expect(screen.getByRole('header', { name: 'Suggested stories' })).toBeTruthy();
+    expect(screen.queryByText('Hero image credits →')).toBeNull();
+    expect(screen.queryByRole('tab', { name: 'Plan destination tab' })).toBeNull();
+    expect(screen.queryByRole('tab', { name: 'Saved destination tab' })).toBeNull();
+    expect(screen.getByRole('link', { name: 'Open Tenganan Village' })).toBeTruthy();
+    expect(screen.getByRole('link', { name: 'Open Barong Dance' })).toBeTruthy();
+    expect(screen.queryByRole('link', { name: 'Open Babi Guling' })).toBeNull();
+    expect(screen.queryByRole('link', { name: 'Open Subak Water Temples' })).toBeNull();
+
+    fireEvent.press(screen.getByRole('tab', { name: 'Layers destination tab' }));
+    expect(screen.getByRole('header', { name: 'Explore Bali by layer' })).toBeTruthy();
+    expect(screen.getAllByRole('link', { name: /^Open (Iconic|Hidden|Culture|Taste|Nature) layer$/ })).toHaveLength(5);
+    expect(screen.getByRole('tab', { name: 'Overview destination tab' }).props.accessibilityState).toEqual(expect.objectContaining({ selected: false }));
+    fireEvent.press(screen.getByRole('tab', { name: 'Places destination tab' }));
+    for (const place of ['Tanah Lot', 'Tenganan Village', 'Mount Batur', 'Nusa Penida', 'Ulun Danu Beratan', 'Uluwatu Temple']) {
+      expect(screen.getByRole('link', { name: `Open ${place}` })).toBeTruthy();
+    }
+    fireEvent.press(screen.getByRole('link', { name: 'Open Nusa Penida' }));
+    expect(onOpenItem).toHaveBeenCalledWith('nusa-penida');
+  });
+
+  it('renders a Saved item in the default All filter', () => {
     useSavedStore.getState().setStatus('tanah-lot', 'discoveryItem', 'saved', 'date');
     render(<SavedScreen onExplore={jest.fn()} onOpenDestination={jest.fn()} onOpenItem={jest.fn()} onOpenPassport={jest.fn()} />);
-    expect(screen.getByLabelText('Open Tanah Lot')).toBeTruthy();
-    fireEvent.press(screen.getAllByRole('button', { name: 'Want to Go' })[0]);
-    expect(screen.getByRole('header', { name: 'Nothing in this view' })).toBeTruthy();
+    expect(screen.getByRole('link', { name: 'Open Tanah Lot, Indonesia' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'All saved filter' }).props.accessibilityState).toEqual(expect.objectContaining({ selected: true }));
   });
 
   it('renders derived Passport counters and a static stamp', () => {

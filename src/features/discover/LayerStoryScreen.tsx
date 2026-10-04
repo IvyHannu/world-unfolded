@@ -3,9 +3,11 @@ import { StyleSheet, View } from 'react-native';
 
 import { AppText, ContentImage, ErrorState, LayerLabel, ScreenContainer, Tappable } from '@/components/ui';
 import { discoveryItems } from '@/content/contentIndex';
-import { getDestinationById, getImageById } from '@/content/selectors';
+import { getDestinationById, getImageById, getItemsForDestination } from '@/content/selectors';
 import { DISCOVERY_LAYERS, type DiscoveryLayer } from '@/content/vocabularies';
 import { colors, discoveryLayerColors, elevation, palette, radius, spacing } from '@/tokens';
+import { BaliLayerScreen } from './BaliLayerScreen';
+import { CultureLayerScreen } from './CultureLayerScreen';
 
 const copy: Record<DiscoveryLayer, { title: string; subtitle: string; note: string }> = {
   iconic: { title: 'Iconic Layer', subtitle: 'Look again at the places everyone recognises.', note: 'A landmark becomes memorable when its human story matters as much as its silhouette.' },
@@ -15,13 +17,22 @@ const copy: Record<DiscoveryLayer, { title: string; subtitle: string; note: stri
   nature: { title: 'Nature Layer', subtitle: 'See how landscape and local life shape one another.', note: 'Nature is more than a view: it influences movement, livelihoods, traditions, and the rhythm of a place.' },
 };
 
-export function LayerStoryScreen({ destinationId, layer, onBack, onOpenItem }: { destinationId?: string; layer?: string; onBack: () => void; onOpenItem: (id: string) => void }) {
+export function LayerStoryScreen({ destinationId, layer, onBack, onOpenItem, onOpenLayer, onOpenTab }: {
+  destinationId?: string;
+  layer?: string;
+  onBack: () => void;
+  onOpenItem: (id: string) => void;
+  onOpenLayer: (layer: DiscoveryLayer) => void;
+  onOpenTab: (tab: 'discover' | 'explore' | 'saved' | 'passport' | 'profile') => void;
+}) {
   if (!DISCOVERY_LAYERS.includes(layer as DiscoveryLayer)) return <ScreenContainer><ErrorState actionLabel="Go back" message="This discovery layer is not available." onAction={onBack} title="Layer unavailable" /></ScreenContainer>;
   const activeLayer = layer as DiscoveryLayer;
   const detail = copy[activeLayer];
   const destination = destinationId ? getDestinationById(destinationId) : undefined;
   const items = discoveryItems.filter((item) => item.layer === activeLayer && (!destinationId || item.destinationId === destinationId)).slice(0, 5);
   if (items.length === 0) return <ScreenContainer><ErrorState actionLabel="Go back" message={`${destination ? destination.name : 'This destination'} has no story in the ${detail.title} yet.`} onAction={onBack} title="No stories in this layer" /></ScreenContainer>;
+  if (destinationId === 'bali' && activeLayer === 'culture') return <CultureLayerScreen onBack={onBack} onOpenItem={onOpenItem} onOpenLayer={onOpenLayer} onOpenTab={onOpenTab} />;
+  if (destinationId === 'bali') return <BaliLayerScreen items={getItemsForDestination('bali')} layer={activeLayer} onBack={onBack} onOpenItem={onOpenItem} />;
   const hero = getImageById(items[0].imageIds[0]);
   return <ScreenContainer>
     <View style={styles.hero}>{hero ? <ContentImage height={390} image={hero} style={styles.heroImage} /> : null}<View pointerEvents="none" style={styles.shade} /><Tappable accessibilityLabel="Go back" accessibilityRole="button" onPress={onBack} style={styles.back}><Ionicons color={palette.softMist} name="arrow-back" size={24} /></Tappable><View style={styles.heroCopy}><View style={[styles.accent, { backgroundColor: discoveryLayerColors[activeLayer] }]} /><AppText accessibilityRole="header" typographyRole="display" style={styles.heroTitle}>{detail.title}</AppText><AppText style={styles.heroSubtitle}>{detail.subtitle}</AppText></View></View>

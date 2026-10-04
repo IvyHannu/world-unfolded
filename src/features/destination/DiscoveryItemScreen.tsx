@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { Image as ExpoImage } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
 
@@ -48,6 +49,7 @@ export function DiscoveryItemScreen({ item, onBack, onOpenCredits, onOpenItem }:
   if (!item) return <ScreenContainer><ErrorState actionLabel="Go back" message="This discovery is not part of the approved content set." onAction={onBack} title="Discovery unavailable" /></ScreenContainer>;
 
   const image = getImageById(item.imageIds[0]);
+  const isBarongDance = item.id === 'subak';
   const destination = getDestinationById(item.destinationId);
   const placeImage = destination ? getImageById(destination.heroImageId) : undefined;
   const practical = item.practicalInformation;
@@ -65,7 +67,9 @@ export function DiscoveryItemScreen({ item, onBack, onOpenCredits, onOpenItem }:
   return (
     <ScreenContainer backgroundColor={storyPalette.sandstone}>
       <View style={[styles.hero, { height: heroHeight }]}>
-        {image ? <ContentImage height={heroHeight} image={image} style={styles.heroImage} /> : null}
+        {isBarongDance ? (
+          <ExpoImage accessibilityLabel="Balinese Barong dance masks and performers" accessible contentFit="cover" source={require('../../../assets/images/bali-layer-barong dance.jpg')} style={StyleSheet.absoluteFill} />
+        ) : image ? <ContentImage height={heroHeight} image={image} style={styles.heroImage} /> : null}
         <LinearGradient colors={heroFade} locations={[0, 0.3, 0.6, 1]} pointerEvents="none" style={StyleSheet.absoluteFill} />
         <View style={styles.heroTop}>
           <Tappable accessibilityLabel="Go back" accessibilityRole="button" onPress={onBack} style={styles.heroControl}>
@@ -117,7 +121,7 @@ export function DiscoveryItemScreen({ item, onBack, onOpenCredits, onOpenItem }:
           </View>
         ) : null}
 
-        {image ? <Tappable accessibilityLabel={`View image credits for ${item.name}`} accessibilityRole="link" onPress={() => onOpenCredits(image.id)} style={styles.credit}><AppText typographyRole="caption">Image credits →</AppText></Tappable> : null}
+        {image && !isBarongDance ? <Tappable accessibilityLabel={`View image credits for ${item.name}`} accessibilityRole="link" onPress={() => onOpenCredits(image.id)} style={styles.credit}><AppText typographyRole="caption">Image credits →</AppText></Tappable> : null}
 
         {placeImage && destination ? (
           <View style={styles.placeBand}>
