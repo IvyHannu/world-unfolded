@@ -46,32 +46,92 @@ const layerDetails: Record<DiscoveryLayer, { icon: LayerIcon; note: string }> = 
 };
 
 const baliLayerImages: Record<DiscoveryLayer, number> = {
-  iconic: require('../../../assets/images/bali-tanah-lot.jpg'),
-  hidden: require('../../../assets/images/bali-tukad-cepung.jpg'),
-  culture: require('../../../assets/images/bali-layer-galungan .jpg'),
-  taste: require('../../../assets/images/bali-layer-taste.jpg'),
-  nature: require('../../../assets/images/bali-sidemen-valley.jpg'),
+  iconic: require('../../../assets/images/bali/bali-tanah-lot-sunset.jpg'),
+  hidden: require('../../../assets/images/bali/bali-tukad-cepung-sunbeams.jpg'),
+  culture: require('../../../assets/images/bali/bali-galungan-festival-procession.jpg'),
+  taste: require('../../../assets/images/bali/bali-terrace-culinary-feast.jpg'),
+  nature: require('../../../assets/images/bali/bali-mount-batur-sunrise.jpg'),
 };
 
 const baliOverviewLayerImages: Record<DiscoveryLayer, number> = {
   ...baliLayerImages,
-  culture: require('../../../assets/images/bali-kecak-fire-dance.jpg'),
+  culture: require('../../../assets/images/bali/bali-uluwatu-kecak-fire-dance.jpg'),
 };
 
-const baliHero = require('../../../assets/images/bali-destination-hero.jpg');
+const baliHero = require('../../../assets/images/bali/bali-tanah-lot-coastal-aerial.jpg');
 const baliPlaces = [
-  { itemId: 'tanah-lot', name: 'Tanah Lot', image: require('../../../assets/images/bali-tanah-lot.jpg') },
-  { itemId: 'tenganan', name: 'Tenganan Village', image: require('../../../assets/images/bali-tenganan-village.jpg') },
-  { itemId: 'mount-batur', name: 'Mount Batur', image: require('../../../assets/images/bali-mount-batur.jpg') },
-  { itemId: 'nusa-penida', name: 'Nusa Penida', image: require('../../../assets/images/bali-hero discover.jpg') },
-  { itemId: 'ulun-danu-beratan', name: 'Ulun Danu Beratan', image: require('../../../assets/images/bali-ulun-danu.jpg') },
-  { itemId: 'uluwatu-temple', name: 'Uluwatu Temple', image: require('../../../assets/images/bali-kecak-fire-dance.jpg') },
+  { itemId: 'tanah-lot', name: 'Tanah Lot', image: require('../../../assets/images/bali/bali-tanah-lot-sunset.jpg') },
+  { itemId: 'tenganan', name: 'Tenganan Village', image: require('../../../assets/images/bali/bali-tenganan-village.jpg') },
+  { itemId: 'mount-batur', name: 'Mount Batur', image: require('../../../assets/images/bali/bali-mount-batur-sunrise.jpg') },
+  { itemId: 'nusa-penida', name: 'Nusa Penida', image: require('../../../assets/images/bali/nusa-penida-kelingking-beach-sunset.jpg') },
+  { itemId: 'ulun-danu-beratan', name: 'Ulun Danu Beratan', image: require('../../../assets/images/bali/bali-ulun-danu-beratan-sunrise.jpg') },
+  { itemId: 'uluwatu-temple', name: 'Uluwatu Temple', image: require('../../../assets/images/bali/bali-uluwatu-kecak-fire-dance.jpg') },
 ] as const;
 
 const baliStoryImages: Record<string, number> = {
-  tenganan: require('../../../assets/images/bali-tenganan-village.jpg'),
-  subak: require('../../../assets/images/bali-layer-barong dance.jpg'),
+  tenganan: require('../../../assets/images/bali/bali-tenganan-village.jpg'),
+  subak: require('../../../assets/images/bali/bali-barong-dance-performance.jpg'),
 };
+
+const cappadociaLayerImages: Record<DiscoveryLayer, number> = {
+  iconic: require('../../../assets/images/cappadocia/cappadocia-hoodoos-beneath-colorful-balloons.png'),
+  hidden: require('../../../assets/images/cappadocia/cappadocia-cave-entrance-in-sunlight.png'),
+  culture: require('../../../assets/images/cappadocia/cappadocia-potter-at-work.png'),
+  taste: require('../../../assets/images/cappadocia/cappadocia-feast-scenic-views.png'),
+  nature: require('../../../assets/images/cappadocia/cappadocia-canyon-river-vista.png'),
+};
+
+const cappadociaHero = require('../../../assets/images/cappadocia/cappadocia-sunrise-balloon-valley-panorama.png');
+
+const kyotoLayerImages: Record<DiscoveryLayer, number> = {
+  iconic: require('../../../assets/images/kyoto/kyoto-fushimi-inari-torii-tunnel.png'),
+  hidden: require('../../../assets/images/kyoto/kyoto-autumn-bridge-mountain-river.png'),
+  culture: require('../../../assets/images/kyoto/kyoto-gion-lantern-festival-procession.png'),
+  taste: require('../../../assets/images/kyoto/kyoto-autumn-kaiseki-feast-garden.png'),
+  nature: require('../../../assets/images/kyoto/kyoto-sunlit-bamboo-forest-path.png'),
+};
+
+const kyotoHero = require('../../../assets/images/kyoto/kyoto-cherry-blossoms-historic-city.png');
+
+const marrakechLayerImages: Record<DiscoveryLayer, number> = {
+  iconic: require('../../../assets/images/marrakech/marrakech-jemaa-el-fna-drum-dance.png'),
+  hidden: require('../../../assets/images/marrakech/marrakech-palace-garden-reflections.png'),
+  culture: require('../../../assets/images/marrakech/marrakech-souk-under-minaret.png'),
+  taste: require('../../../assets/images/marrakech/marrakech-tagine-feast-courtyard.png'),
+  nature: require('../../../assets/images/marrakech/morocco-canyon-cascades-waterfalls.png'),
+};
+
+const marrakechHero = require('../../../assets/images/marrakech/marrakech-sunset-atlas-mountains.png');
+
+const rioLayerImages: Record<DiscoveryLayer, number> = {
+  iconic: require('../../../assets/images/rio/rio-christ-the-redeemer-statue-front.png'),
+  hidden: require('../../../assets/images/rio/rio-turquoise-bay-lush-mountains.png'),
+  culture: require('../../../assets/images/rio/rio-boteco-samba-circle.png'),
+  taste: require('../../../assets/images/rio/rio-feijoada-hillside-view.png'),
+  nature: require('../../../assets/images/rio/rio-tijuca-jungle-waterfall-pool.png'),
+};
+
+const rioHero = require('../../../assets/images/rio/rio-guanabara-bay-sugarloaf-panorama.png');
+
+const romeLayerImages: Record<DiscoveryLayer, number> = {
+  iconic: require('../../../assets/images/rome/rome-sunny-colosseum-overlook.png'),
+  hidden: require('../../../assets/images/rome/rome-villa-garden-entrance.png'),
+  culture: require('../../../assets/images/rome/rome-dancing-twilight-piazza.png'),
+  taste: require('../../../assets/images/rome/rome-trattoria-feast.png'),
+  nature: require('../../../assets/images/rome/rome-via-appia-golden-sunset.png'),
+};
+
+const romeHero = require('../../../assets/images/rome/rome-forum-and-palatine-hill-panorama.png');
+
+const santoriniLayerImages: Record<DiscoveryLayer, number> = {
+  iconic: require('../../../assets/images/santorini/santorini-blue-domes-bougainvillea.png'),
+  hidden: require('../../../assets/images/santorini/santorini-sunlit-village-by-sea.png'),
+  culture: require('../../../assets/images/santorini/santorini-sunset-folk-festival.png'),
+  taste: require('../../../assets/images/santorini/santorini-feast-by-sea.png'),
+  nature: require('../../../assets/images/santorini/santorini-black-sand-beach-red-cliffs.png'),
+};
+
+const santoriniHero = require('../../../assets/images/santorini/santorini-twilight-over-caldera.png');
 
 const baliQuickTags = ['Beaches', 'Temples', 'Culture'];
 const dockTabs: { id: DestinationDockTab; label: string; icon: LayerIcon }[] = [
@@ -106,6 +166,12 @@ export function DestinationScreen({ section, destination, items, onBack, onOpenI
   const destinationItems = items.filter((item) => item.destinationId === destination.id);
   const hero = getImageById(destination.heroImageId);
   const isBali = destination.id === 'bali';
+  const isCappadocia = destination.id === 'cappadocia';
+  const isKyoto = destination.id === 'kyoto';
+  const isMarrakech = destination.id === 'marrakech';
+  const isRio = destination.id === 'rio-de-janeiro';
+  const isRome = destination.id === 'rome';
+  const isSantorini = destination.id === 'santorini';
   const isSaved = savedRecord?.status === 'saved';
   const isWantToGo = savedRecord?.status === 'wantToGo';
   const quickTags = isBali ? baliQuickTags : destination.interestTags.slice(0, 3).map((tag) => tag.replaceAll('_', ' '));
@@ -125,7 +191,7 @@ export function DestinationScreen({ section, destination, items, onBack, onOpenI
   const storyCards = storyItems.map((item) => ({
     item,
     title: item.name,
-    source: isBali ? baliStoryImages[item.id] ?? baliLayerImages[item.layer] : layerSource(item.layer, destinationItems, false),
+    source: isBali ? baliStoryImages[item.id] ?? baliLayerImages[item.layer] : layerSource(item.layer, destinationItems, false, 'layers', isCappadocia, isKyoto, isMarrakech, isRio, isRome, isSantorini),
     onPress: () => onOpenItem(item.id),
   }));
   const keyFacts = [
@@ -153,6 +219,18 @@ export function DestinationScreen({ section, destination, items, onBack, onOpenI
           <View style={[styles.hero, { height: heroHeight }]}>
             {isBali ? (
               <ExpoImage accessible={false} contentFit="cover" contentPosition={activeTab === 'overview' ? { left: '50%', top: '20%' } : undefined} source={baliHero} style={StyleSheet.absoluteFill} />
+            ) : isCappadocia ? (
+              <ExpoImage accessible={false} contentFit="cover" source={cappadociaHero} style={StyleSheet.absoluteFill} />
+            ) : isKyoto ? (
+              <ExpoImage accessible={false} contentFit="cover" source={kyotoHero} style={StyleSheet.absoluteFill} />
+            ) : isMarrakech ? (
+              <ExpoImage accessible={false} contentFit="cover" source={marrakechHero} style={StyleSheet.absoluteFill} />
+            ) : isRio ? (
+              <ExpoImage accessible={false} contentFit="cover" source={rioHero} style={StyleSheet.absoluteFill} />
+            ) : isRome ? (
+              <ExpoImage accessible={false} contentFit="cover" source={romeHero} style={StyleSheet.absoluteFill} />
+            ) : isSantorini ? (
+              <ExpoImage accessible={false} contentFit="cover" source={santoriniHero} style={StyleSheet.absoluteFill} />
             ) : hero ? (
               <ContentImage height={390} image={hero} style={StyleSheet.absoluteFill} />
             ) : null}
@@ -237,7 +315,7 @@ export function DestinationScreen({ section, destination, items, onBack, onOpenI
                   <ScrollView accessibilityLabel="Explore Bali by layer" contentContainerStyle={styles.layerPreviewRail} horizontal showsHorizontalScrollIndicator={false}>
                     {DISCOVERY_LAYERS.map((layer) => (
                       <DestinationTappable accessibilityLabel={`Explore ${layer} layer`} accessibilityRole="link" key={layer} onPress={() => onOpenLayer(layer)} style={[styles.layerPreview, { width: layerPreviewWidth }]}>
-                        <ExpoImage contentFit="cover" source={layerSource(layer, destinationItems, isBali, 'overview')} style={StyleSheet.absoluteFill} />
+                        <ExpoImage contentFit="cover" source={layerSource(layer, destinationItems, isBali, 'overview', isCappadocia, isKyoto, isMarrakech, isRio, isRome, isSantorini)} style={StyleSheet.absoluteFill} />
                         <LinearGradient colors={['rgba(3,26,47,0.02)', 'rgba(3,26,47,0.84)']} style={StyleSheet.absoluteFill} />
                         <View style={[styles.layerPreviewIcon, { backgroundColor: discoveryLayerColors[layer] }]}>
                           <Ionicons color={palette.carbonInk} name={layerDetails[layer].icon} size={19} />
@@ -283,7 +361,7 @@ export function DestinationScreen({ section, destination, items, onBack, onOpenI
                 </View>
                 <View style={styles.layerCards}>
                   {DISCOVERY_LAYERS.map((layer) => (
-                    <LayerCard destinationItems={destinationItems} isBali={isBali} key={layer} layer={layer} onPress={() => onOpenLayer(layer)} />
+                    <LayerCard destinationItems={destinationItems} isBali={isBali} isCappadocia={isCappadocia} isKyoto={isKyoto} isMarrakech={isMarrakech} isRio={isRio} isRome={isRome} isSantorini={isSantorini} key={layer} layer={layer} onPress={() => onOpenLayer(layer)} />
                   ))}
                 </View>
               </View>
@@ -367,11 +445,11 @@ function DestinationActions({ compact = false, destination, isSaved, isWantToGo,
   );
 }
 
-function LayerCard({ destinationItems, isBali, layer, onPress }: { destinationItems: readonly DiscoveryItem[]; isBali: boolean; layer: DiscoveryLayer; onPress: () => void }) {
+function LayerCard({ destinationItems, isBali, isCappadocia, isKyoto, isMarrakech, isRio, isRome, isSantorini, layer, onPress }: { destinationItems: readonly DiscoveryItem[]; isBali: boolean; isCappadocia: boolean; isKyoto: boolean; isMarrakech: boolean; isRio: boolean; isRome: boolean; isSantorini: boolean; layer: DiscoveryLayer; onPress: () => void }) {
   const item = destinationItems.find((candidate) => candidate.layer === layer);
   return (
     <DestinationTappable accessibilityLabel={`Open ${capitalize(layer)} layer`} accessibilityRole="link" onPress={onPress} style={styles.layerCard}>
-      <ExpoImage contentFit="cover" source={layerSource(layer, destinationItems, isBali)} style={StyleSheet.absoluteFill} />
+      <ExpoImage contentFit="cover" source={layerSource(layer, destinationItems, isBali, 'layers', isCappadocia, isKyoto, isMarrakech, isRio, isRome, isSantorini)} style={StyleSheet.absoluteFill} />
       <LinearGradient colors={['rgba(3,26,47,0.04)', 'rgba(3,26,47,0.12)', 'rgba(3,26,47,0.86)']} locations={[0, 0.45, 1]} style={StyleSheet.absoluteFill} />
       <View style={[styles.layerCardIcon, { backgroundColor: discoveryLayerColors[layer] }]}><Ionicons color={palette.carbonInk} name={layerDetails[layer].icon} size={19} /></View>
       <View style={styles.layerCardCopy}>
@@ -394,8 +472,14 @@ function StoryCard({ onPress, source, title, width }: { onPress: () => void; sou
   );
 }
 
-function layerSource(layer: DiscoveryLayer, destinationItems: readonly DiscoveryItem[], isBali: boolean, section: 'overview' | 'layers' = 'layers') {
+function layerSource(layer: DiscoveryLayer, destinationItems: readonly DiscoveryItem[], isBali: boolean, section: 'overview' | 'layers' = 'layers', isCappadocia = false, isKyoto = false, isMarrakech = false, isRio = false, isRome = false, isSantorini = false) {
   if (isBali) return section === 'overview' ? baliOverviewLayerImages[layer] : baliLayerImages[layer];
+  if (isCappadocia) return cappadociaLayerImages[layer];
+  if (isKyoto) return kyotoLayerImages[layer];
+  if (isMarrakech) return marrakechLayerImages[layer];
+  if (isRio) return rioLayerImages[layer];
+  if (isRome) return romeLayerImages[layer];
+  if (isSantorini) return santoriniLayerImages[layer];
   const item = destinationItems.find((candidate) => candidate.layer === layer);
   const image = item ? getImageById(item.imageIds[0]) : undefined;
   return image ? { uri: image.url } : baliLayerImages[layer];

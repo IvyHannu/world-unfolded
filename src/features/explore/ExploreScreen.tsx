@@ -34,13 +34,13 @@ const destinationLayers: Record<string, DiscoveryLayer> = {
   'rio-de-janeiro': 'nature',
 };
 const destinationImages: Record<string, number> = {
-  bali: require('../../../assets/images/bali-layer-iconic.jpg'),
-  marrakech: require('../../../assets/images/explore-marrakech.jpg'),
-  santorini: require('../../../assets/images/explore-santorini.jpg'),
-  rome: require('../../../assets/images/explore-rome.jpg'),
-  cappadocia: require('../../../assets/images/explore-cappadocia.jpg'),
-  kyoto: require('../../../assets/images/explore-kyoto.jpg'),
-  'rio-de-janeiro': require('../../../assets/images/explore-rio.jpg'),
+  bali: require('../../../assets/images/bali/bali-lempuyang-gates-of-heaven.jpg'),
+  marrakech: require('../../../assets/images/marrakech/marrakech-koutoubia-minaret-golden-sunset.png'),
+  santorini: require('../../../assets/images/santorini/santorini-sunset-village-by-sea.png'),
+  rome: require('../../../assets/images/rome/rome-colosseum-golden-sunlight.png'),
+  cappadocia: require('../../../assets/images/cappadocia/cappadocia-rock-fortress-panorama.png'),
+  kyoto: require('../../../assets/images/kyoto/kyoto-golden-hour-pagoda-streetscape.png'),
+  'rio-de-janeiro': require('../../../assets/images/rio/rio-christ-the-redeemer-aerial-bay-view.png'),
 };
 const layerIcons: Record<ExploreLayer, keyof typeof Ionicons.glyphMap> = {
   all: 'grid',

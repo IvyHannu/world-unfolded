@@ -18,20 +18,20 @@ type ArtworkIcon = keyof typeof Ionicons.glyphMap;
 const tabs: PassportTab[] = ['Stamps', 'Highlights', 'Notes'];
 const PASSPORT_SANDSTONE = '#F6E8D6';
 const journeyImages: Record<string, number> = {
-  bali: require('../../../assets/images/bali-hero discover.jpg'),
-  marrakech: require('../../../assets/images/explore-marrakech.jpg'),
-  santorini: require('../../../assets/images/explore-santorini.jpg'),
-  rome: require('../../../assets/images/explore-rome.jpg'),
-  cappadocia: require('../../../assets/images/explore-cappadocia.jpg'),
-  kyoto: require('../../../assets/images/explore-kyoto.jpg'),
-  'rio-de-janeiro': require('../../../assets/images/explore-rio.jpg'),
+  bali: require('../../../assets/images/bali/nusa-penida-kelingking-beach-sunset.jpg'),
+  marrakech: require('../../../assets/images/marrakech/marrakech-menara-gardens-atlas-mountains.png'),
+  santorini: require('../../../assets/images/santorini/santorini-sunset-resort-retreat.png'),
+  rome: require('../../../assets/images/rome/rome-castel-sant-angelo-by-night.png'),
+  cappadocia: require('../../../assets/images/cappadocia/cappadocia-twilight-glow-rock-village.png'),
+  kyoto: require('../../../assets/images/kyoto/kyoto-cherry-blossom-canal-spring.png'),
+  'rio-de-janeiro': require('../../../assets/images/rio/rio-arpoador-beach-golden-hour.png'),
 };
 const journeyCaptions: Record<string, string> = {
   bali: 'Watched the sunrise at Lempuyang. A moment of pure stillness.',
   kyoto: 'Cherry blossoms and quiet streets. Timeless in every way.',
 };
 const artworkByDestination: Record<string, { icon: ArtworkIcon; sky: string; sun: string; land: string; water: string }> = {
-  bali: { icon: 'business-outline', sky: '#F3C985', sun: '#FFF0C6', land: '#55795A', water: '#70B8B1' },
+  bali: { icon: 'business-outline', sky: '#E8D5B7', sun: '#F5E8D0', land: '#6B8E6B', water: '#8AB8B0' },
   marrakech: { icon: 'sunny-outline', sky: '#E7A875', sun: '#FFE2A4', land: '#A85E43', water: '#5E7560' },
   santorini: { icon: 'home-outline', sky: '#82BFD0', sun: '#FFF1C5', land: '#F7EBDD', water: '#438BA2' },
   rome: { icon: 'business-outline', sky: '#E7B77B', sun: '#FFE6A9', land: '#A66B50', water: '#6D8A6A' },
